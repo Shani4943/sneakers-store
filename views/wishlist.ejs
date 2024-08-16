@@ -17,21 +17,31 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Item removed from wishlist!');
                     // Remove the item from the DOM
                     const itemElement = document.getElementById(title);
                     if (itemElement) {
                         itemElement.remove();
                     }
+        
+                    // Check if the wishlist is now empty
+                    const wishlistItems = document.querySelectorAll('#wishlist-items li');
+                    if (wishlistItems.length === 0) {
+                        // Display "Your wishlist is empty" message
+                        const wishlistContainer = document.getElementById('wishlist-container');
+                        const emptyMessage = document.createElement('p');
+                        emptyMessage.textContent = 'Your wishlist is empty.';
+                        wishlistContainer.appendChild(emptyMessage);
+                    }
                 } else {
-                    alert('Error removing item from wishlist.');
+                    console.error('Error removing item from wishlist.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error removing item from wishlist.');
             });
         }
+        
+        
     </script>
 </head>
 <body>

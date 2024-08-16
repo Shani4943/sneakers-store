@@ -29,7 +29,8 @@
         
         <div>
             <h3>First step: Choose how much you want to spend on them (we are sure they deserve a lot)</h3>
-            <select name="amount" id="amount">
+            <select name="amount" id="amount" required>
+                <option value="">Select an amount</option> <!-- Ensure user selects an option -->
                 <option value="30">30 USD</option>
                 <option value="45">45 USD</option>
                 <option value="60">60 USD</option>
@@ -44,13 +45,13 @@
         
         <div>
             <h3>Second step: Write them something sweet, maybe a joke that only the two of you can remember</h3>
-            <textarea name="message" id="message" placeholder="Write your message here..." maxlength="200"></textarea>
+            <textarea name="message" id="message" placeholder="Write your message here..." maxlength="200" required></textarea>
             <div>Character Count: <span id="charCount">0</span>/200</div>
         </div>
         
         <div>
             <h3>Your Name:</h3>
-            <input type="text" name="yourName" id="yourName" placeholder="Your Name">
+            <input type="text" name="yourName" id="yourName" placeholder="Your Name" required>
         </div>
         
         <div>
@@ -61,7 +62,7 @@
         
         <div id="recipientEmailDiv" style="display:none;">
             <h3>Recipient Email Address:</h3>
-            <input type="email" name="recipientEmail" id="recipientEmail" placeholder="Recipient's Email">
+            <input type="email" name="recipientEmail" id="recipientEmail" placeholder="Recipient's Email" required>
         </div>
 
         <div id="selfMessage" style="display:none;">
@@ -78,11 +79,13 @@
         document.getElementById('giftButton').addEventListener('click', function() {
             document.getElementById('recipientEmailDiv').style.display = 'block';
             document.getElementById('selfMessage').style.display = 'none';
+            document.getElementById('recipientEmail').required = true; // Make recipient email required
         });
         
         document.getElementById('selfButton').addEventListener('click', function() {
             document.getElementById('recipientEmailDiv').style.display = 'none';
             document.getElementById('selfMessage').style.display = 'block';
+            document.getElementById('recipientEmail').required = false; // Remove required attribute
         });
         
         document.getElementById('message').addEventListener('input', function() {

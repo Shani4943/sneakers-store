@@ -237,7 +237,7 @@ router.post('/wishlist/remove', isAuthenticated, (req, res) => {
     const wishlist = JSON.parse(fs.readFileSync(wishlistFilePath));
 
     if (!wishlist[username]) {
-        return res.status(400).json({ success: false, message: 'Wishlist not found.' });
+        return res.status(400).json({ success: false });
     }
 
     wishlist[username] = wishlist[username].filter(item => item.title !== title);
@@ -246,6 +246,7 @@ router.post('/wishlist/remove', isAuthenticated, (req, res) => {
 
     res.json({ success: true });
 });
+
 
 // Route to display the gift card purchase page
 router.get('/giftcard', isAuthenticated, (req, res) => {
