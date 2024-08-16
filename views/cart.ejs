@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Cart Items -->
+    <ul>
+        <% if (cart.length > 0) { %>
+            <% cart.forEach(function(item) { %>
+                <li>
+                    <strong><%= item.title %></strong> - $<%= item.price %> 
+                    (Quantity: <%= item.quantity %>)
+                    <% if (item.image) { %>
+                        <img src="<%= item.image %>" alt="<%= item.title %>" style="max-width: 100px;">
+                    <% } %>
+                    <form action="/users/store/remove-from-cart" method="POST" style="display:inline;">
+                        <input type="hidden" name="title" value="<%= item.title %>">
+                        <button type="submit">Remove</button>
+                    </form>
+                    <form action="/users/store/increase-quantity" method="POST" style="display:inline;">
+                        <input type="hidden" name="title" value="<%= item.title %>">
+                        <button type="submit">+</button>
+                    </form>
+                    <span><%= item.quantity %></span> <!-- Quantity display between buttons -->
+                    <form action="/users/store/decrease-quantity" method="POST" style="display:inline;">
+                        <input type="hidden" name="title" value="<%= item.title %>">
+                        <button type="submit">-</button>
+                    </form>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <p>Your cart is empty.</p>
+        <% } %>
+    </ul>
+
+    <!-- Checkout Button -->
+    <form action="/users/checkout" method="GET">
+        <button type="submit">Checkout</button>
+    </form>
+
+</body>
+</html>
