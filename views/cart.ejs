@@ -23,27 +23,26 @@
     </nav>
 
     <!-- Cart Items -->
-    <ul>
+    <ul id="cart-items">
         <% if (cart.length > 0) { %>
             <% cart.forEach(function(item) { %>
-                <li>
-                    <strong><%= item.title %></strong> - $<%= item.price %> 
-                    (Quantity: <%= item.quantity %>)
+                <li data-title="<%= item.title %>">
+                    <strong><%= item.title %></strong> - $<%= item.price.toFixed(2) %> 
                     <% if (item.image) { %>
                         <img src="<%= item.image %>" alt="<%= item.title %>" style="max-width: 100px;">
                     <% } %>
+
+                    <!-- Quantity Control -->
+                    <div style="display: inline-block;">
+                        <button class="decrease-quantity">-</button>
+                        <span class="item-quantity"><%= item.quantity %></span>
+                        <button class="increase-quantity">+</button>
+                    </div>
+
+                    <!-- Remove Item -->
                     <form action="/users/store/remove-from-cart" method="POST" style="display:inline;">
                         <input type="hidden" name="title" value="<%= item.title %>">
                         <button type="submit">Remove</button>
-                    </form>
-                    <form action="/users/store/increase-quantity" method="POST" style="display:inline;">
-                        <input type="hidden" name="title" value="<%= item.title %>">
-                        <button type="submit">+</button>
-                    </form>
-                    <span><%= item.quantity %></span> <!-- Quantity display between buttons -->
-                    <form action="/users/store/decrease-quantity" method="POST" style="display:inline;">
-                        <input type="hidden" name="title" value="<%= item.title %>">
-                        <button type="submit">-</button>
                     </form>
                 </li>
             <% }); %>
@@ -56,6 +55,48 @@
     <form action="/users/checkout" method="GET">
         <button type="submit">Checkout</button>
     </form>
+
+    <script>
+        document.querySelectorAll('.increase-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.closest('li').getAttribute('data-title');
+                fetch('/users/store/increase-quantity', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title })
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          const quantityElement = this.closest('li').querySelector('.item-quantity');
+                          quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
+                      }
+                  });
+            });
+        });
+
+        document.querySelectorAll('.decrease-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.closest('li').getAttribute('data-title');
+                fetch('/users/store/decrease-quantity', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title })
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          const quantityElement = this.closest('li').querySelector('.item-quantity');
+                          const newQuantity = parseInt(quantityElement.textContent) - 1;
+                          if (newQuantity > 0) {
+                              quantityElement.textContent = newQuantity;
+                          } else {
+                              this.closest('li').remove(); // Remove the item if quantity is 0
+                          }
+                      }
+                  }).catch(error => console.error('Error:', error));
+            });
+        });
+        
+    </script>
 
 </body>
 </html>

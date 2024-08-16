@@ -53,6 +53,27 @@ router.get('/cart', isAuthenticated, (req, res) => {
     res.render('cart', { cart: cart[username] || [] });
 });
 
+router.get('/checkout', isAuthenticated, (req, res) => {
+    const username = req.cookies.username;
+    const cart = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/cart.json')));
+
+    let totalPrice = 0;
+
+    if (cart[username]) {
+        cart[username].forEach(item => {
+            totalPrice += item.price * item.quantity;
+        });
+    }
+
+    console.log('Total Price:', totalPrice); // This should output a number
+
+
+    // Render the checkout page with cart details and total price
+    res.render('checkout', { cart: cart[username] || [], totalPrice: totalPrice });
+});
+
+
+
 router.get('/admin', isAuthenticated, isAdmin, (req, res) => {
     const activityLog = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/activityLog.json')));
     const products = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/products.json')));
@@ -77,12 +98,77 @@ router.post('/store/add-to-cart', isAuthenticated, (req, res) => {
         cart[username] = [];
     }
 
-    cart[username].push(product);
+    // Check if the product already exists in the cart
+    const existingProductIndex = cart[username].findIndex(item => item.title === title);
+
+    if (existingProductIndex !== -1) {
+        // If the product exists, increase the quantity
+        if (!cart[username][existingProductIndex].quantity) {
+            cart[username][existingProductIndex].quantity = 1; // Initialize quantity if not present
+        }
+        cart[username][existingProductIndex].quantity += 1;
+    } else {
+        // If the product does not exist in the cart, add it with a quantity of 1
+        cart[username].push({ ...product, quantity: 1 });
+    }
 
     fs.writeFileSync(path.join(__dirname, '../data/cart.json'), JSON.stringify(cart, null, 2));
 
     res.json({ success: true });
 });
+
+router.post('/store/increase-quantity', isAuthenticated, (req, res) => {
+    const { title } = req.body;
+    const username = req.cookies.username;
+
+    const cart = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/cart.json')));
+
+    if (!cart[username]) {
+        return res.status(400).json({ success: false, message: 'Cart not found.' });
+    }
+
+    const productIndex = cart[username].findIndex(item => item.title === title);
+
+    if (productIndex !== -1) {
+        cart[username][productIndex].quantity += 1;
+    } else {
+        return res.status(400).json({ success: false, message: 'Product not found in cart.' });
+    }
+
+    fs.writeFileSync(path.join(__dirname, '../data/cart.json'), JSON.stringify(cart, null, 2));
+
+    res.json({ success: true });
+});
+
+router.post('/store/decrease-quantity', isAuthenticated, (req, res) => {
+    const { title } = req.body;
+    const username = req.cookies.username;
+
+    const cart = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/cart.json')));
+
+    if (!cart[username]) {
+        return res.status(400).json({ success: false, message: 'Cart not found.' });
+    }
+
+    const productIndex = cart[username].findIndex(item => item.title === title);
+
+    if (productIndex !== -1) {
+        if (cart[username][productIndex].quantity > 1) {
+            cart[username][productIndex].quantity -= 1;
+        } else {
+            cart[username].splice(productIndex, 1); // Remove item if quantity is 0
+        }
+    } else {
+        return res.status(400).json({ success: false, message: 'Product not found in cart.' });
+    }
+
+    fs.writeFileSync(path.join(__dirname, '../data/cart.json'), JSON.stringify(cart, null, 2));
+
+    res.json({ success: true });
+});
+
+
+
 
 // Remove from cart route
 router.post('/store/remove-from-cart', isAuthenticated, (req, res) => {

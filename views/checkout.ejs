@@ -49,7 +49,12 @@
                 </li>
             <% }); %>
         </ul>
-        <p>Total: $<%= totalPrice.toFixed(2) %></p> <!-- Ensure 2 decimal places -->
+        <% if (typeof totalPrice === 'number') { %>
+            <p>Total: $<%= totalPrice.toFixed(2) %></p>
+        <% } else { %>
+            <p>Error: totalPrice is not a number!</p>
+        <% } %>
+        
     </div>
 
     <form action="/users/checkout/complete" method="POST">
