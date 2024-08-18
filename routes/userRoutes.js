@@ -72,6 +72,41 @@ router.get('/checkout', isAuthenticated, (req, res) => {
     res.render('checkout', { cart: cart[username] || [], totalPrice: totalPrice });
 });
 
+// Add the route to handle the 'complete purchase' action
+router.post('/checkout/complete', isAuthenticated, (req, res) => {
+    const username = req.cookies.username;
+    const cartFilePath = path.join(__dirname, '../data/cart.json');
+    const purchasesFilePath = path.join(__dirname, '../data/purchases.json');
+
+    // Load the cart and purchases data
+    const cart = JSON.parse(fs.readFileSync(cartFilePath));
+    const purchases = JSON.parse(fs.readFileSync(purchasesFilePath));
+
+    if (!cart[username] || cart[username].length === 0) {
+        return res.status(400).send('Your cart is empty.');
+    }
+
+    // Add the cart items to the user's purchase history
+    if (!purchases[username]) {
+        purchases[username] = [];
+    }
+    purchases[username].push(...cart[username]);
+
+    // Clear the user's cart
+    cart[username] = [];
+
+    // Save the updated cart and purchases back to the file
+    fs.writeFileSync(cartFilePath, JSON.stringify(cart, null, 2));
+    fs.writeFileSync(purchasesFilePath, JSON.stringify(purchases, null, 2));
+
+    // Redirect to the thank you page
+    res.redirect('/users/thankyou');
+});
+
+// Route to display the thank you page
+router.get('/thankyou', isAuthenticated, (req, res) => {
+    res.render('thankyou'); // Make sure you have a 'thank_you.ejs' file in your views directory
+});
 
 
 router.get('/admin', isAuthenticated, isAdmin, (req, res) => {
