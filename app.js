@@ -23,6 +23,11 @@ app.get('/', (req, res) => {
     res.redirect('/users/login');
 });
 
+// Add the /llm.html route
+app.get('/llm.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'llm.html'));
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
