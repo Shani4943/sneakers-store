@@ -23,30 +23,33 @@
     </nav>
 
     <!-- Cart Items -->
-    <ul id="cart-items">
-        <% if (cart.length > 0) { %>
-            <% cart.forEach(function(item) { %>
-                <li data-title="<%= item.title %>">
-                    <strong><%= item.title %></strong> - $<%= item.price.toFixed(2) %> 
-                    <% if (item.image) { %>
-                        <img src="<%= item.image %>" alt="<%= item.title %>" style="max-width: 100px;">
-                    <% } %>
+    <div class="container">
+        <ul id="cart-items">
+            <% if (cart.length > 0) { %>
+                <% cart.forEach(function(item) { %>
+                    <li data-title="<%= item.title %>">
+                        <strong><%= item.title %></strong>   
+                        <% if (item.image) { %>
+                            <img src="<%= item.image %>" alt="<%= item.title %>">
+                        <% } %>
+                        Price: $<%= item.price.toFixed(2) %>
 
-                    <!-- Quantity Control -->
-                    <div style="display: inline-block;">
-                        <button class="decrease-quantity">-</button>
-                        <span class="item-quantity"><%= item.quantity %></span>
-                        <button class="increase-quantity">+</button>
-                    </div>
+                        <!-- Quantity Control -->
+                        <div>
+                            <button class="decrease-quantity">-</button>
+                            <span class="item-quantity"><%= item.quantity %></span>
+                            <button class="increase-quantity">+</button>
+                        </div>
 
-                   <!-- Remove Item -->
-                   <button class="remove-item" data-title="<%= item.title %>">Remove</button>
-                </li>
-            <% }); %>
-        <% } else { %>
-            <p>Your cart is empty. <a href="/users/store">Add items from the store</a>.</p>
-        <% } %>
-    </ul>
+                       <!-- Remove Item -->
+                       <button class="remove-item" data-title="<%= item.title %>">Remove</button>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <p>Your cart is empty. <a href="/users/store">Add items from the store</a>.</p>
+            <% } %>
+        </ul>
+    </div>
 
     <!-- Checkout Button -->
     <% if (cart.length > 0) { %>

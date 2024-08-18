@@ -29,6 +29,13 @@
       "description": "A stylish casual shoe.",
       "price": 89.99,
       "image": "/images/black-colors.jpg",
+      "quantity": 3
+    },
+    {
+      "title": "Olive Green",
+      "description": "A classic look with a modern twist.",
+      "price": 69.99,
+      "image": "/images/green-white-red.jpg",
       "quantity": 1
     }
   ],

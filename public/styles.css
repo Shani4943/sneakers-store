@@ -1,33 +1,33 @@
 /* General Styling */
 body {
-    background-color: #f0f0f0; /* Light grey background */
+    background-color: #f0f0f0;
     font-family: 'Calibri', sans-serif;
-    color: #333; /* Dark grey text color */
+    color: #333;
     margin: 0;
-    padding: 20px; /* Added padding for space on all sides */
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* Title Styling */
 h1 {
-    color: #000000; /* Black title color */
+    color: #000000;
     font-size: 2.5em;
     margin: 20px 0;
 }
 
 /* Navigation Styling */
 nav {
-    background-color: #e0e0e0; /* Grey background for the toolbar */
+    background-color: #e0e0e0;
     width: 100%;
     padding: 10px 0;
-    margin-bottom: 20px; /* Added margin below navigation */
+    margin-bottom: 20px;
     box-sizing: border-box;
-    padding-left: 20px; /* Increased padding on the left */
-    padding-right: 20px; /* Increased padding on the right */
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 nav ul {
@@ -44,57 +44,102 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #000000; /* Black text color for links */
+    color: #000000;
     font-size: 1.2em;
 }
 
-/* Cart Items Styling */
-ul {
+/* General Container Styling */
+.container {
+    width: 100%;
+    max-width: 1000px; /* Reduced max-width to make the container smaller */
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* Items Container */
+#products, #cart-items, #wishlist-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 100%; /* Make the list take up the full width */
-    max-width: 1200px; /* Set a max-width for better layout on larger screens */
-    padding-left: 20px; /* Increased padding on the left */
-    padding-right: 20px; /* Increased padding on the right */
 }
 
-li {
-    margin: 20px 0;
-    border-bottom: 1px solid #ccc; /* Light grey border */
-    padding-bottom: 10px;
-    padding-left: 20px; /* Increased padding on the left */
-    padding-right: 20px; /* Increased padding on the right */
+/* Individual Item Styling */
+.product, #cart-items li, #wishlist-items li {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    flex: 1 1 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-li img {
-    display: block;
-    margin-top: 10px;
+/* Item Titles */
+.product strong, #cart-items li strong, #wishlist-items li strong {
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
-form {
-    margin-top: 10px;
+/* Images */
+.product img, #cart-items li img, #wishlist-items li img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
 }
 
-/* Checkout Button Styling */
-button[type="submit"] {
-    background-color: #333; /* Dark grey button */
-    color: #fff; /* White text */
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+/* Price Styling */
+.product p, #cart-items li p, #wishlist-items li p {
+    margin: 10px 0;
+}
+
+/* Quantity Control for Cart Items */
+#cart-items li div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+#cart-items li div button {
+    width: 30px;
+    height: 30px;
     font-size: 1em;
-    margin-top: 20px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #000; /* Black button on hover */
+#cart-items li div button:hover {
+    background-color: #f0f0f0;
 }
 
-/* Adjustments for container */
-.container {
-    width: 100%;
-    max-width: 1200px; /* Max width for better layout */
-    padding: 20px; /* Padding inside the container */
-    margin: 0 auto; /* Center the container */
+/* Subtle Button Styling */
+.product button, #cart-items li button, #wishlist-items li button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    font-size: 1em;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product button:hover, #cart-items li button:hover, #wishlist-items li button:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
