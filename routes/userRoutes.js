@@ -291,15 +291,36 @@ router.get('/giftcard', isAuthenticated, (req, res) => {
 });
 
 // Route to handle the checkout process and redirect to the thank you page
+
 router.post('/giftcard/checkout', isAuthenticated, (req, res) => {
     const { amount, message, yourName, recipientEmail } = req.body;
+    const giftcardsFilePath = path.join(__dirname, '../data/giftcards.json');
 
-    // Here you can process the gift card data (e.g., save it, send an email, etc.)
-    console.log('Gift Card Purchased:', { amount, message, yourName, recipientEmail });
+    // Load existing gift cards data
+    let giftcards = {};
+    if (fs.existsSync(giftcardsFilePath)) {
+        giftcards = JSON.parse(fs.readFileSync(giftcardsFilePath));
+    }
+
+    // Generate a unique ID for the gift card purchase (or use another identifier like email or date)
+    const giftcardId = Date.now(); // Using timestamp as a simple unique ID
+
+    // Store the gift card data
+    giftcards[giftcardId] = {
+        amount,
+        message,
+        yourName,
+        recipientEmail,
+        date: new Date().toISOString()
+    };
+
+    // Save the updated gift cards data back to the file
+    fs.writeFileSync(giftcardsFilePath, JSON.stringify(giftcards, null, 2));
 
     // Redirect to the thank you page
     res.redirect('/users/giftcard/thank-you');
 });
+
 
 // Route to display the thank you page
 router.get('/giftcard/thank-you', isAuthenticated, (req, res) => {
