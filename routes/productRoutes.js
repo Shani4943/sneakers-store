@@ -12,7 +12,7 @@ function isAuthenticated(req, res, next) {
 }
 
 // Route to display products in the store
-router.get('/store', isAuthenticated, async (req, res) => {
+router.get('/store', async (req, res) => {
     try {
         const products = await persist.readData('products.json');
         res.render('store', { products, username: req.cookies.username });
@@ -25,6 +25,7 @@ router.get('/store', isAuthenticated, async (req, res) => {
 // Add to cart route
 router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
     try {
+        console.log('Add to cart route hit');
         const { title } = req.body;
         const username = req.cookies.username;
 
@@ -63,6 +64,7 @@ router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 // View wishlist route
 router.get('/wishlist', isAuthenticated, async (req, res) => {

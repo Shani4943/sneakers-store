@@ -12,7 +12,7 @@ function isAuthenticated(req, res, next) {
 }
 
 // Route to view the cart
-router.get('/cart', isAuthenticated, async (req, res) => {
+router.get('/cart',  isAuthenticated, async (req, res) => {
     const username = req.cookies.username;
     const cart = await persist.readData('cart.json');
     res.render('cart', { cart: cart[username] || [] });

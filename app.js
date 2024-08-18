@@ -34,7 +34,7 @@ app.use('/users', miscRoutes);
 
 // Example route (you'll create more later)
 app.get('/', (req, res) => {
-    res.redirect('/users/login');
+    res.redirect('/users/store');
 });
 
 // Add the /llm.html route
