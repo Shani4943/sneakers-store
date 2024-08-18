@@ -72,7 +72,7 @@ router.get('/thankyou', isAuthenticated, (req, res) => {
 });
 
 // Increase quantity route
-router.post('/store/increase-quantity', isAuthenticated, async (req, res) => {
+router.put('/store/increase-quantity', isAuthenticated, async (req, res) => {
     const { title } = req.body;
     const username = req.cookies.username;
 
@@ -96,7 +96,7 @@ router.post('/store/increase-quantity', isAuthenticated, async (req, res) => {
 });
 
 // Decrease quantity route
-router.post('/store/decrease-quantity', isAuthenticated, async (req, res) => {
+router.put('/store/decrease-quantity', isAuthenticated, async (req, res) => {
     const { title } = req.body;
     const username = req.cookies.username;
 
@@ -124,7 +124,7 @@ router.post('/store/decrease-quantity', isAuthenticated, async (req, res) => {
 });
 
 // Remove from cart route
-router.post('/store/remove-from-cart', isAuthenticated, async (req, res) => {
+router.delete('/store/remove-from-cart', isAuthenticated, async (req, res) => {
     const { title } = req.body;
     const username = req.cookies.username;
 
@@ -138,7 +138,7 @@ router.post('/store/remove-from-cart', isAuthenticated, async (req, res) => {
 
     await persist.writeData('cart.json', cart);
 
-    res.redirect('/users/cart');
+    res.json({ success: true });
 });
 
 module.exports = router;

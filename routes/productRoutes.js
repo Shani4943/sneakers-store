@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const persist = require('./persist');  // Import the persist module
+const persist = require('./persist'); // Import the persist module
 
 // Middleware to check if the user is authenticated
 function isAuthenticated(req, res, next) {
@@ -113,7 +113,7 @@ router.post('/wishlist/add', isAuthenticated, async (req, res) => {
 });
 
 // Remove from wishlist route
-router.post('/wishlist/remove', isAuthenticated, async (req, res) => {
+router.delete('/wishlist/remove', isAuthenticated, async (req, res) => {
     try {
         const { title } = req.body;
         const username = req.cookies.username;
