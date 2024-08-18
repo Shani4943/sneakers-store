@@ -57,6 +57,10 @@ router.get('/checkout', isAuthenticated, (req, res) => {
     const username = req.cookies.username;
     const cart = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/cart.json')));
 
+    if (!cart[username] || cart[username].length === 0) {
+        return res.redirect('/users/cart'); // Redirect back to the cart page
+    }
+
     let totalPrice = 0;
 
     if (cart[username]) {
@@ -65,12 +69,10 @@ router.get('/checkout', isAuthenticated, (req, res) => {
         });
     }
 
-    console.log('Total Price:', totalPrice); // This should output a number
-
-
     // Render the checkout page with cart details and total price
-    res.render('checkout', { cart: cart[username] || [], totalPrice: totalPrice });
+    res.render('checkout', { cart: cart[username], totalPrice: totalPrice });
 });
+
 
 // Add the route to handle the 'complete purchase' action
 router.post('/checkout/complete', isAuthenticated, (req, res) => {

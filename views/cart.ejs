@@ -47,14 +47,16 @@
                 </li>
             <% }); %>
         <% } else { %>
-            <p>Your cart is empty.</p>
+            <p>Your cart is empty. <a href="/users/store">Add items from the store</a>.</p>
         <% } %>
     </ul>
 
     <!-- Checkout Button -->
-    <form action="/users/checkout" method="GET">
-        <button type="submit">Checkout</button>
-    </form>
+    <% if (cart.length > 0) { %>
+        <form action="/users/checkout" method="GET">
+            <button type="submit">Checkout</button>
+        </form>
+    <% } %>
 
     <script>
         document.querySelectorAll('.increase-quantity').forEach(button => {
