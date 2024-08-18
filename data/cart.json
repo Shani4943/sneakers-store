@@ -1,27 +1,5 @@
 {
-  "shani": [
-    {
-      "title": "tie die black Dunks",
-      "description": "A stylish casual shoe.",
-      "price": 89.99,
-      "image": "/images/colorful.jpg",
-      "quantity": 1
-    },
-    {
-      "title": "Green and Black",
-      "description": "A stylish casual shoe.",
-      "price": 89.99,
-      "image": "/images/green-black.jpg",
-      "quantity": 1
-    },
-    {
-      "title": "white Dunks",
-      "description": "A stylish casual shoe.",
-      "price": 89.99,
-      "image": "/images/white.jpg",
-      "quantity": 1
-    }
-  ],
+  "shani": [],
   "admin": [
     {
       "title": "Black with Patches Dunks",

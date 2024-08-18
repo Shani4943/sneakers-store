@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const persist = require('./persist');
- // Import the persist module
+const persist = require('./persist'); // Import the persist module
 
 // Middleware to check if the user is authenticated
 function isAuthenticated(req, res, next) {
@@ -13,16 +12,16 @@ function isAuthenticated(req, res, next) {
 }
 
 // Route to view the cart
-router.get('/cart', isAuthenticated, (req, res) => {
+router.get('/cart',  isAuthenticated, async (req, res) => {
     const username = req.cookies.username;
-    const cart = persist.readData('cart.json');
+    const cart = await persist.readData('cart.json');
     res.render('cart', { cart: cart[username] || [] });
 });
 
 // Route to handle checkout
-router.get('/checkout', isAuthenticated, (req, res) => {
+router.get('/checkout', isAuthenticated, async (req, res) => {
     const username = req.cookies.username;
-    const cart = persist.readData('cart.json');
+    const cart = await persist.readData('cart.json');
 
     if (!cart[username] || cart[username].length === 0) {
         return res.redirect('/users/cart'); // Redirect back to the cart page
@@ -41,10 +40,10 @@ router.get('/checkout', isAuthenticated, (req, res) => {
 });
 
 // Route to handle 'complete purchase'
-router.post('/checkout/complete', isAuthenticated, (req, res) => {
+router.post('/checkout/complete', isAuthenticated, async (req, res) => {
     const username = req.cookies.username;
-    const cart = persist.readData('cart.json');
-    const purchases = persist.readData('purchases.json');
+    const cart = await persist.readData('cart.json');
+    const purchases = await persist.readData('purchases.json');
 
     if (!cart[username] || cart[username].length === 0) {
         return res.status(400).send('Your cart is empty.');
@@ -60,8 +59,8 @@ router.post('/checkout/complete', isAuthenticated, (req, res) => {
     cart[username] = [];
 
     // Save the updated cart and purchases back to the file
-    persist.writeData('cart.json', cart);
-    persist.writeData('purchases.json', purchases);
+    await persist.writeData('cart.json', cart);
+    await persist.writeData('purchases.json', purchases);
 
     // Redirect to the thank you page
     res.redirect('/users/thankyou');
@@ -73,11 +72,11 @@ router.get('/thankyou', isAuthenticated, (req, res) => {
 });
 
 // Increase quantity route
-router.post('/store/increase-quantity', isAuthenticated, (req, res) => {
+router.put('/store/increase-quantity', isAuthenticated, async (req, res) => {
     const { title } = req.body;
     const username = req.cookies.username;
 
-    const cart = persist.readData('cart.json');
+    const cart = await persist.readData('cart.json');
 
     if (!cart[username]) {
         return res.status(400).json({ success: false, message: 'Cart not found.' });
@@ -91,17 +90,17 @@ router.post('/store/increase-quantity', isAuthenticated, (req, res) => {
         return res.status(400).json({ success: false, message: 'Product not found in cart.' });
     }
 
-    persist.writeData('cart.json', cart);
+    await persist.writeData('cart.json', cart);
 
     res.json({ success: true });
 });
 
 // Decrease quantity route
-router.post('/store/decrease-quantity', isAuthenticated, (req, res) => {
+router.put('/store/decrease-quantity', isAuthenticated, async (req, res) => {
     const { title } = req.body;
     const username = req.cookies.username;
 
-    const cart = persist.readData('cart.json');
+    const cart = await persist.readData('cart.json');
 
     if (!cart[username]) {
         return res.status(400).json({ success: false, message: 'Cart not found.' });
@@ -119,17 +118,17 @@ router.post('/store/decrease-quantity', isAuthenticated, (req, res) => {
         return res.status(400).json({ success: false, message: 'Product not found in cart.' });
     }
 
-    persist.writeData('cart.json', cart);
+    await persist.writeData('cart.json', cart);
 
     res.json({ success: true });
 });
 
 // Remove from cart route
-router.post('/store/remove-from-cart', isAuthenticated, (req, res) => {
+router.delete('/store/remove-from-cart', isAuthenticated, async (req, res) => {
     const { title } = req.body;
     const username = req.cookies.username;
 
-    const cart = persist.readData('cart.json');
+    const cart = await persist.readData('cart.json');
 
     if (!cart[username]) {
         return res.status(400).json({ success: false, message: 'Cart not found.' });
@@ -137,9 +136,9 @@ router.post('/store/remove-from-cart', isAuthenticated, (req, res) => {
 
     cart[username] = cart[username].filter(item => item.title !== title);
 
-    persist.writeData('cart.json', cart);
+    await persist.writeData('cart.json', cart);
 
-    res.redirect('/users/cart');
+    res.json({ success: true });
 });
 
 module.exports = router;

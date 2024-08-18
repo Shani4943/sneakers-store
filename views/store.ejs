@@ -16,9 +16,16 @@
                 },
                 body: JSON.stringify({ title: title })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (response.redirected) {
+                    // Redirect to login page if not authenticated
+                    window.location.href = response.url;
+                } else {
+                    return response.json();
+                }
+            })
             .then(data => {
-                if (data.success) {
+                if (data && data.success) {
                     // Update the button text to indicate the item was added
                     const button = document.querySelector(`button[onclick="addToCart('${title}')"]`);
                     button.textContent = 'Added to Cart';
@@ -27,7 +34,7 @@
                         button.textContent = 'Add to Cart';
                         button.disabled = false;
                     }, 2000); // Re-enable the button after 2 seconds
-                } else {
+                } else if (data && data.message) {
                     console.error('Error adding item to cart:', data.message);
                 }
             })
@@ -35,7 +42,6 @@
                 console.error('Error:', error);
             });
         }
-        
 
         function addToWishlist(title) {
             console.log('addToWishlist function called with title:', title);
@@ -46,9 +52,16 @@
                 },
                 body: JSON.stringify({ title: title })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (response.redirected) {
+                    // Redirect to login page if not authenticated
+                    window.location.href = response.url;
+                } else {
+                    return response.json();
+                }
+            })
             .then(data => {
-                if (data.success) {
+                if (data && data.success) {
                     // Update the button text to indicate the item was added
                     const button = document.querySelector(`button[onclick="addToWishlist('${title}')"]`);
                     button.textContent = 'Added to Wishlist';
@@ -57,7 +70,7 @@
                         button.textContent = 'Add to Wishlist';
                         button.disabled = false;
                     }, 2000); // Re-enable the button after 2 seconds
-                } else {
+                } else if (data && data.message) {
                     console.error('Error adding item to wishlist:', data.message);
                 }
             })
@@ -65,16 +78,15 @@
                 console.error('Error:', error);
             });
         }
-        
-        
+
         function filterProducts() {
             const query = document.getElementById('search').value.toLowerCase();
             const products = document.querySelectorAll('.product');
-        
+
             products.forEach(product => {
                 const title = product.querySelector('h2').textContent.toLowerCase();
                 const description = product.querySelector('p').textContent.toLowerCase();
-        
+
                 if (title.includes(query) || description.includes(query)) {
                     product.style.display = 'block';
                 } else {
@@ -82,7 +94,6 @@
                 }
             });
         }
-        
     </script>
 </head>
 <body>

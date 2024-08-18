@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const persist = require('./persist');  // Import the persist module
+const persist = require('./persist'); // Import the persist module
 
 // Middleware to check if the user is authenticated and an admin
 function isAuthenticated(req, res, next) {
@@ -22,10 +22,15 @@ function isAdmin(req, res, next) {
 }
 
 // Admin dashboard route
-router.get('/admin', isAuthenticated, isAdmin, (req, res) => {
-    const activityLog = persist.readData('activityLog.json');
-    const products = persist.readData('products.json');
-    res.render('admin', { activityLog, products });
+router.get('/admin', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const activityLog = await persist.readData('activityLog.json');
+        const products = await persist.readData('products.json');
+        res.render('admin', { activityLog, products });
+    } catch (error) {
+        console.error('Error reading data:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 module.exports = router;
