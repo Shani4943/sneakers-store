@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-const persist = require('./persist');
-
+const persist = require('./persist'); // Import the persist module
 
 // Middleware to check if the user is authenticated
 function isAuthenticated(req, res, next) {
@@ -14,23 +13,54 @@ function isAuthenticated(req, res, next) {
 }
 
 // Route that handles the GET request for /register
-router.get('/register', (req, res) => {
-    res.render('register');
+router.get('/register', async (req, res) => {
+    try {
+        res.render('register');
+    } catch (error) {
+        console.error('Error rendering register page:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 // Route that handles the GET request for /login
-router.get('/login', (req, res) => {
-    res.render('login');
+router.get('/login', async (req, res) => {
+    try {
+        res.render('login');
+    } catch (error) {
+        console.error('Error rendering login page:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 // Route to handle user registration
-router.post('/register', userController.register);
+router.post('/register', async (req, res) => {
+    try {
+        await userController.register(req, res);
+    } catch (error) {
+        console.error('Error handling user registration:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // Route to handle user login
-router.post('/login', userController.login);
+router.post('/login', async (req, res) => {
+    try {
+        await userController.login(req, res);
+    } catch (error) {
+        console.error('Error handling user login:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // Route to handle user logout
-router.get('/logout', userController.logout);
+router.get('/logout', async (req, res) => {
+    try {
+        await userController.logout(req, res);
+    } catch (error) {
+        console.error('Error handling user logout:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // Export the router to make it available in other files
 module.exports = router;
