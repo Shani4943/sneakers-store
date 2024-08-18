@@ -2,7 +2,16 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const userRoutes = require('./routes/userRoutes');
+
+// Import the separated route modules
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const giftcardRoutes = require('./routes/giftcardRoutes');
+const miscRoutes = require('./routes/miscRoutes');
+
+
 const app = express();
 
 // Middleware
@@ -15,8 +24,13 @@ app.use(express.json());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');  // You can use any templating engine, here we're using EJS
 
-// Routes
-app.use('/users', userRoutes);
+// Use the separated routes
+app.use('/users', authRoutes);
+app.use('/users', productRoutes);
+app.use('/users', cartRoutes);
+app.use('/users', adminRoutes);
+app.use('/users', giftcardRoutes);
+app.use('/users', miscRoutes);
 
 // Example route (you'll create more later)
 app.get('/', (req, res) => {
