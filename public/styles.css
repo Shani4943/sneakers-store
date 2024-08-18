@@ -51,7 +51,7 @@ nav ul li a {
 /* General Container Styling */
 .container {
     width: 100%;
-    max-width: 1000px; /* Reduced max-width to make the container smaller */
+    max-width: 1000px;
     padding: 20px;
     margin: 0 auto;
 }
@@ -142,4 +142,22 @@ nav ul li a {
 .product button:hover, #cart-items li button:hover, #wishlist-items li button:hover {
     background-color: #f0f0f0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle Checkout Button */
+form button[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #bbb;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #d0d0d0;
+    border-color: #999;
 }
