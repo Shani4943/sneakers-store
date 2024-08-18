@@ -73,17 +73,18 @@ router.get('/wishlist', isAuthenticated, async (req, res) => {
         const wishlist = await persist.readData('wishlist.json');
         const userWishlist = wishlist[username] || [];
 
-        // Load products to map title to image
+        // Load products to map title to image and price
         const products = await persist.readData('products.json');
-        const productMap = new Map(products.map(p => [p.title, p.image]));
+        const productMap = new Map(products.map(p => [p.title, p]));
 
-        // Map wishlist items to include images
-        const wishlistWithImages = userWishlist.map(item => ({
+        // Map wishlist items to include images and prices
+        const wishlistWithDetails = userWishlist.map(item => ({
             ...item,
-            image: productMap.get(item.title) || null
+            image: productMap.get(item.title)?.image || null,
+            price: productMap.get(item.title)?.price || 'N/A'  // Include price, default to 'N/A' if not found
         }));
 
-        res.render('wishlist', { wishlist: wishlistWithImages });
+        res.render('wishlist', { wishlist: wishlistWithDetails });
     } catch (error) {
         console.error('Error loading wishlist:', error);
         res.status(500).send('Internal Server Error');

@@ -42,6 +42,11 @@ app.get('/llm.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'llm.html'));
 });
 
+// Add the /readme.html route
+app.get('/readme.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'readme.html'));
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

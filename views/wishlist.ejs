@@ -69,6 +69,7 @@
                     <% if (item.image) { %>
                         <img src="<%= item.image %>" alt="<%= item.title %>" style="max-width: 100px;">
                     <% } %>
+                    <p>Price: $<%= item.price %></p> <!-- Display the price -->
                     <button onclick="removeFromWishlist('<%= item.title %>')">Remove</button>
                 </li>
             <% }); %>
@@ -76,6 +77,5 @@
             <p>Your wishlist is empty.</p>
         <% } %>
     </ul>
-
 </body>
 </html>
