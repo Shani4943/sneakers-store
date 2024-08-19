@@ -12,15 +12,41 @@ body {
     min-height: 100vh;
 }
 
-/* Title Styling */
-h1 {
-    color: #000000;
-    font-size: 2.5em;
-    margin: 20px 0;
+/* Title Styling for All Pages */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Calibri', sans-serif;
+    color: #333;
+}
+
+/* Select Element Styling */
+select {
+    font-family: 'Calibri', sans-serif;
+    font-size: 1em;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:hover, select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Ensure Consistency Across All Pages */
+body, p, label {
+    font-family: 'Calibri', sans-serif;
+    font-size: 1em;
 }
 
 /* Navigation Styling */
 nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     background-color: #e0e0e0;
     width: 100%;
     padding: 10px 0;
@@ -28,17 +54,21 @@ nav {
     box-sizing: border-box;
     padding-left: 20px;
     padding-right: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
 nav ul {
+    display: flex;
+    justify-content: center;
     list-style-type: none;
     margin: 0;
     padding: 0;
-    text-align: center;
+    flex-wrap: nowrap; /* Ensure items stay on one line */
+    overflow-x: auto; /* Allow horizontal scrolling if necessary */
 }
 
 nav ul li {
-    display: inline;
     margin: 0 15px;
 }
 
@@ -46,13 +76,23 @@ nav ul li a {
     text-decoration: none;
     color: #000000;
     font-size: 1.2em;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    white-space: nowrap; /* Prevent line breaks */
 }
+
+nav ul li a:hover {
+    color: #007bff;
+}
+
 
 /* General Container Styling */
 .container {
     width: 100%;
     max-width: 1000px;
-    padding: 20px;
+    padding: 40px;
     margin: 0 auto;
 }
 
@@ -70,7 +110,7 @@ nav ul li a {
 /* Individual Item Styling */
 .product, #cart-items li, #wishlist-items li {
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: none;
     padding: 20px;
     margin-bottom: 20px;
     flex: 1 1 calc(33.33% - 20px);
@@ -80,55 +120,43 @@ nav ul li a {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product:hover, #cart-items li:hover, #wishlist-items li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Item Titles */
 .product strong, #cart-items li strong, #wishlist-items li strong {
     font-size: 1.2em;
     margin-bottom: 10px;
+    font-family: 'Calibri', sans-serif;
 }
 
 /* Product Image Styling */
-.product img {
-    width: 100%; /* Make the image take up the full width of the container */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 300px; /* Limit the height to ensure images aren't too tall */
-    object-fit: cover; /* Ensures the image covers the container without stretching */
+.product img, .container img {
+    width: 100%;
+    height: auto;
+    max-height: 250px; /* Adjusted to ensure better visibility without cutting */
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
 /* Reduce margin between title and description */
-.product h2 {
-    margin-bottom: 5px; /* Reduce the bottom margin for the title */
+.product h2, .container h2 {
+    margin-bottom: 10px;
+    font-family: 'Calibri', sans-serif;
 }
 
-.product p {
-    margin-top: 5px; /* Reduce the top margin for the description */
-}
-
-/* Wishlist and Cart Image Styling */
-.container img {
-    width: 100%; /* Ensure the image fills the container width */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 200px; /* Limit the image height to keep it within the container */
-    object-fit: cover; /* Ensure the image covers the container area without stretching */
-}
-
-/* Additional container styling to ensure the image doesn't overflow */
-.container li {
-    overflow: hidden; /* Prevents images from overflowing their containers */
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-/* Reduce the margin between the title and description */
-.container h2 {
-    margin-bottom: 5px;
-}
-
-.container p {
+.product p, .container p {
     margin-top: 5px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    font-family: 'Calibri', sans-serif;
 }
-
 
 /* Quantity Control for Cart Items */
 #cart-items li div {
@@ -150,118 +178,119 @@ nav ul li a {
     background-color: white;
     color: #333;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #cart-items li div button:hover {
     background-color: #f0f0f0;
 }
 
-/* Subtle Button Styling */
+/* Modern Button Styling */
 .product button, #cart-items li button, #wishlist-items li button {
-    margin-top: 10px;
-    padding: 8px 16px;
+    padding: 10px 20px;
     font-size: 1em;
-    border-radius: 5px;
-    background-color: white;
-    color: #333;
-    border: 1px solid #ccc;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text color */
+    border: 1px solid #000; /* Black border */
     cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.2s ease;
+    font-family: 'Montserrat', sans-serif; /* Retain Montserrat for buttons */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 0px; /* Square corners */
+    width: 48%; /* Adjust width to allow buttons to be side by side */
+    display: inline-block;
+    margin: 0; /* Remove top margin */
+    box-sizing: border-box;
 }
 
 .product button:hover, #cart-items li button:hover, #wishlist-items li button:hover {
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* Light grey hover effect */
+    color: #007bff; /* Blue text color on hover */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Subtle Checkout Button */
-form button[type="submit"] {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1.1em;
-    border-radius: 5px;
-    background-color: #e0e0e0;
-    color: #333;
-    border: 1px solid #bbb;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-form button[type="submit"]:hover {
-    background-color: #d0d0d0;
-    border-color: #999;
 }
 
 /* Buttons Container Styling */
 .buttons-container {
     display: flex;
-    gap: 10px; /* Space between the buttons */
-}
-
-.buttons-container button {
-    flex: 1; /* Make the buttons the same width */
+    gap: 10px;
+    justify-content: center; /* Ensure buttons are centered horizontally */
+    width: 100%;
+    margin: 20px 0;
 }
 
 /* Size Selection Inline Styling */
 .size-selection {
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between the label and the select box */
+    gap: 10px;
 }
 
 .size-selection label {
-    margin: 0; /* Remove any default margin */
+    margin: 0;
+    font-family: 'Calibri', sans-serif;
+    font-weight: 600;
+    font-size: 1.1em;
 }
 
 .size-selection select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 8px 12px;
+    padding-right: 30px; /* Add extra padding to the right */
+    font-size: 1em;
+    font-family: 'Calibri', sans-serif;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     margin-left: 10px;
+    width: auto;
+    box-sizing: border-box;
+}
+
+.size-selection select:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.size-selection select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Sticky Navigation Bar */
 nav {
-    position: -webkit-sticky; /* For Safari */
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: #e0e0e0; /* Background color for the navigation bar */
-    z-index: 1000; /* Ensure the navbar is on top of other elements */
+    background-color: #e0e0e0;
+    z-index: 1000;
     padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow to make the navbar stand out */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Ensure the ul stays horizontal */
-nav ul {
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-/* Styling for the navigation links */
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #000000; /* Black text color for links */
-    font-size: 1.2em;
-}
 
 /* Styling for the Search Container */
 .search-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px; /* Adds some space below the search bar */
+    margin-bottom: 20px;
 }
 
 #search {
-    width: 80%; /* Increase the width to 80% of the container */
-    padding: 12px; /* Increase padding for a taller search bar */
-    font-size: 1.2em; /* Increase the font size */
-    border: 1px solid #ccc; /* Add a subtle border */
-    border-radius: 5px; /* Add rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    width: 90%;
+    padding: 14px;
+    font-size: 1.3em;
+    border-radius: 25px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
 }
-
-

@@ -74,5 +74,23 @@
       "image": "/images/black-colors.jpg",
       "quantity": 1
     }
+  ],
+  "shir": [
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 2,
+      "size": "37"
+    },
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 1,
+      "size": "45"
+    }
   ]
 }
