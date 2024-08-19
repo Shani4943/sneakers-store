@@ -19,7 +19,7 @@ router.get('/cart',  isAuthenticated, async (req, res) => {
 });
 
 // Route to handle checkout
-router.get('/checkout', isAuthenticated, async (req, res) => {
+router.post('/checkout', isAuthenticated, async (req, res) => {
     const username = req.cookies.username;
     const cart = await persist.readData('cart.json');
 
