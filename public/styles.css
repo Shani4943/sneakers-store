@@ -88,17 +88,47 @@ nav ul li a {
     margin-bottom: 10px;
 }
 
-/* Images */
-.product img, #cart-items li img, #wishlist-items li img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+/* Product Image Styling */
+.product img {
+    width: 100%; /* Make the image take up the full width of the container */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 300px; /* Limit the height to ensure images aren't too tall */
+    object-fit: cover; /* Ensures the image covers the container without stretching */
 }
 
-/* Price Styling */
-.product p, #cart-items li p, #wishlist-items li p {
-    margin: 10px 0;
+/* Reduce margin between title and description */
+.product h2 {
+    margin-bottom: 5px; /* Reduce the bottom margin for the title */
 }
+
+.product p {
+    margin-top: 5px; /* Reduce the top margin for the description */
+}
+
+/* Wishlist and Cart Image Styling */
+.container img {
+    width: 100%; /* Ensure the image fills the container width */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 200px; /* Limit the image height to keep it within the container */
+    object-fit: cover; /* Ensure the image covers the container area without stretching */
+}
+
+/* Additional container styling to ensure the image doesn't overflow */
+.container li {
+    overflow: hidden; /* Prevents images from overflowing their containers */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Reduce the margin between the title and description */
+.container h2 {
+    margin-bottom: 5px;
+}
+
+.container p {
+    margin-top: 5px;
+}
+
 
 /* Quantity Control for Cart Items */
 #cart-items li div {
