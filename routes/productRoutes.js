@@ -95,11 +95,10 @@ router.post('/wishlist/add', isAuthenticated, async (req, res) => {
             wishlist[username] = [];
         }
 
-        // Check if the product with the same title and size already exists in the wishlist
-        const existingItemIndex = wishlist[username].findIndex(item => item.title === title && item.size === size);
+        // Check if the product with the same title and size is already in the wishlist
+        const existingItem = wishlist[username].some(item => item.title === title && item.size === size);
 
-        if (existingItemIndex === -1) {
-            // If not, add it to the wishlist
+        if (!existingItem) {
             wishlist[username].push({ title, size });
             await persist.writeData('wishlist.json', wishlist);
             res.json({ success: true });

@@ -43,39 +43,40 @@
     }
 
     function addToWishlist(title) {
-        const size = document.getElementById(`size-${title}`).value;
-        console.log('addToWishlist function called with title:', title, 'and size:', size);
-        fetch('/users/wishlist/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title: title, size: size })
-        })
-        .then(response => {
-            if (response.redirected) {
-                window.location.href = response.url;
-            } else {
-                return response.json();
-            }
-        })
-        .then(data => {
-            if (data && data.success) {
-                const button = document.querySelector(`button[onclick="addToWishlist('${title}')"]`);
-                button.textContent = 'Added to Wishlist';
-                button.disabled = true;
-                setTimeout(() => {
-                    button.textContent = 'Add to Wishlist';
-                    button.disabled = false;
-                }, 2000);
-            } else if (data && data.message) {
-                console.error('Error adding item to wishlist:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+    const size = document.getElementById(`size-${title}`).value;
+    console.log('addToWishlist function called with title:', title, 'and size:', size);
+    fetch('/users/wishlist/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: title, size: size })
+    })
+    .then(response => {
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            return response.json();
+        }
+    })
+    .then(data => {
+        const button = document.querySelector(`button[onclick="addToWishlist('${title}')"]`);
+        if (data && data.success) {
+            button.textContent = 'Added to Wishlist';
+        } else if (data && data.message === 'Item already in wishlist') {
+            button.textContent = 'Item already in Wishlist';
+        }
+        button.disabled = true;
+        setTimeout(() => {
+            button.textContent = 'Add to Wishlist';
+            button.disabled = false;
+        }, 2000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 
     function filterProducts() {
         const query = document.getElementById('search').value.toLowerCase();
