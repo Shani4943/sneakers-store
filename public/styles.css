@@ -294,3 +294,27 @@ nav {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid #ccc;
 }
+
+/* Checkout Button Styling */
+form button[type="submit"] {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    background-color: #000000; /* Black background */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    font-family: 'Montserrat', sans-serif; /* Keep Montserrat for consistency */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 0; /* Square corners */
+    width: 100%; /* Full width */
+    display: block; /* Ensure it behaves like a block element */
+    text-align: center; /* Center the text */
+}
+
+form button[type="submit"]:hover {
+    background-color: #333333; /* Slightly lighter black on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+

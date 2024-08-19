@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy Gift Card</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/stylesgiftcard.css">
 </head>
 <body>
     <h1>Gift Card</h1>
@@ -25,7 +25,7 @@
     <!-- Update form to include POST method and action URL -->
     <form method="POST" action="/users/giftcard/checkout">
         <div>
-            <h2>Your best friend is the BEST? Let them know it :)</h2>
+            <h2>Your best friend is the BEST? Let them know it...</h2>
         </div>
         
         <div>
@@ -51,12 +51,12 @@
         </div>
         
         <div>
-            <h3>Your Name:</h3>
+            <h3>Third step: Your Name:</h3>
             <input type="text" name="yourName" id="yourName" placeholder="Your Name" required>
         </div>
         
         <div>
-            <h3>Third step: Send it as a gift?...</h3>
+            <h3>fourth step: Send it as a gift?</h3>
             <button type="button" id="giftButton">Send as a Gift</button>
             <button type="button" id="selfButton">Send it to Me</button>
         </div>
@@ -67,12 +67,12 @@
         </div>
 
         <div id="selfMessage" style="display:none;">
-            <p>You will receive a link to the card and can either forward it to a friend via messenger or print out a postcard and give it to them in person.</p>
+            <p>You will receive a link to the card and can either forward it to a friend via messenger or print out a postcard and give it to them.</p>
         </div>
     
         <div>
             <!-- Updated button type to submit -->
-            <button type="submit">Checkout</button>
+            <button type="submit" id="checkoutButton">Checkout</button>
         </div>
     </form>
     
