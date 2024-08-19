@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
@@ -32,6 +33,15 @@ router.get('/login', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    try {
+        await userController.login(req, res);
+    } catch (error) {
+        console.error('Error handling user login:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // Route to handle user registration
 router.post('/register', async (req, res) => {
     try {
@@ -42,15 +52,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Route to handle user login
-router.post('/login', async (req, res) => {
-    try {
-        await userController.login(req, res);
-    } catch (error) {
-        console.error('Error handling user login:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+
 
 // Route to handle user logout
 router.get('/logout', async (req, res) => {

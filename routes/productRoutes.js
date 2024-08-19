@@ -23,15 +23,20 @@ router.get('/store', async (req, res) => {
 });
 
 // Add to cart route
+// Add to cart route
+// Add to cart route
 router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
     try {
         const { title, size } = req.body;
         const username = req.cookies.username;
 
+        console.log('Received request to add to cart:', title);
+
         const products = await persist.readData('products.json');
-        const product = products.find(p => p.title === title);
+        const product = products.find(p => p.title.toLowerCase() === title.toLowerCase());
 
         if (!product) {
+            console.log('Product not found:', title);
             return res.status(400).json({ success: false, message: 'Product not found.' });
         }
 
@@ -51,12 +56,15 @@ router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
 
         await persist.writeData('cart.json', cart);
 
+        console.log('Cart updated:', cart[username]);
+
         res.json({ success: true });
     } catch (error) {
         console.error('Error adding to cart:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 
 // View wishlist route
