@@ -161,3 +161,28 @@ form button[type="submit"]:hover {
     background-color: #d0d0d0;
     border-color: #999;
 }
+
+/* Buttons Container Styling */
+.buttons-container {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+}
+
+.buttons-container button {
+    flex: 1; /* Make the buttons the same width */
+}
+
+/* Size Selection Inline Styling */
+.size-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the label and the select box */
+}
+
+.size-selection label {
+    margin: 0; /* Remove any default margin */
+}
+
+.size-selection select {
+    margin-left: 10px;
+}

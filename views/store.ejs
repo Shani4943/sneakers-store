@@ -77,21 +77,21 @@
         });
     }
 
-        function filterProducts() {
-            const query = document.getElementById('search').value.toLowerCase();
-            const products = document.querySelectorAll('.product');
+    function filterProducts() {
+        const query = document.getElementById('search').value.toLowerCase();
+        const products = document.querySelectorAll('.product');
 
-            products.forEach(product => {
-                const title = product.querySelector('h2').textContent.toLowerCase();
-                const description = product.querySelector('p').textContent.toLowerCase();
+        products.forEach(product => {
+            const title = product.querySelector('h2').textContent.toLowerCase();
+            const description = product.querySelector('p').textContent.toLowerCase();
 
-                if (title.includes(query) || description.includes(query)) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        }
+            if (title.includes(query) || description.includes(query)) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
     </script>
 </head>
 <body>
@@ -128,16 +128,20 @@
                 <p>Price: $<%= product.price %></p>
                 
                 <!-- Size Selection -->
-                <label for="size-<%= product.title %>">Select Size:</label>
-                <select id="size-<%= product.title %>" name="size">
-                    <% for (var size = 37; size <= 45; size++) { %>
-                        <option value="<%= size %>"><%= size %></option>
-                    <% } %>
-                </select>
-    
-                <button onclick="addToCart('<%= product.title %>')">Add to Cart</button>
-                <button onclick="addToWishlist('<%= product.title %>')">Add to Wishlist</button>
+                <div class="size-selection">
+                    <label for="size-<%= product.title %>">Select Size:</label>
+                    <select id="size-<%= product.title %>" name="size">
+                        <% for (var size = 37; size <= 45; size++) { %>
+                            <option value="<%= size %>"><%= size %></option>
+                        <% } %>
+                    </select>
+                </div>
 
+                <!-- Buttons Container -->
+                <div class="buttons-container">
+                    <button onclick="addToCart('<%= product.title %>')">Add to Cart</button>
+                    <button onclick="addToWishlist('<%= product.title %>')">Add to Wishlist</button>
+                </div>
             </div>
         <% }); %>
     </div>
