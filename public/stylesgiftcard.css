@@ -12,11 +12,11 @@
 
 /* General Styling */
 body {
-    background-color: #ffffff;
+    background-color: #f0f0f0;
     font-family: 'Calibri', sans-serif;
     color: #333;
     margin: 0;
-    padding: 40px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,6 +26,7 @@ body {
 
 /* Navigation Styling */
 nav {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     background-color: #e0e0e0;
@@ -45,8 +46,8 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: nowrap; /* Ensure items stay on one line */
+    overflow-x: auto; /* Allow horizontal scrolling if necessary */
 }
 
 nav ul li {
@@ -57,11 +58,11 @@ nav ul li a {
     text-decoration: none;
     color: #000000;
     font-size: 1.2em;
-    font-family: 'Calibri', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: color 0.3s ease;
-    white-space: nowrap;
+    white-space: nowrap; /* Prevent line breaks */
 }
 
 nav ul li a:hover {
