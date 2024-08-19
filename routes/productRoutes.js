@@ -26,7 +26,7 @@ router.get('/store', async (req, res) => {
 // Add to cart route
 router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
     try {
-        const { title } = req.body;
+        const { title, size } = req.body;
         const username = req.cookies.username;
 
         console.log('Received request to add to cart:', title);
@@ -45,12 +45,12 @@ router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
             cart[username] = [];
         }
 
-        const existingProductIndex = cart[username].findIndex(item => item.title.toLowerCase() === title.toLowerCase());
+        const existingProductIndex = cart[username].findIndex(item => item.title === title && item.size === size);
 
         if (existingProductIndex !== -1) {
             cart[username][existingProductIndex].quantity += 1;
         } else {
-            cart[username].push({ ...product, quantity: 1 });
+            cart[username].push({ ...product, quantity: 1, size: size });
         }
 
         await persist.writeData('cart.json', cart);
@@ -94,16 +94,19 @@ router.get('/wishlist', isAuthenticated, async (req, res) => {
 // Add to wishlist route
 router.post('/wishlist/add', isAuthenticated, async (req, res) => {
     try {
+        const { title, size } = req.body;
         const username = req.cookies.username;
-        const { title } = req.body;
         const wishlist = await persist.readData('wishlist.json');
 
         if (!wishlist[username]) {
             wishlist[username] = [];
         }
 
-        if (!wishlist[username].some(item => item.title === title)) {
-            wishlist[username].push({ title });
+        // Check if the product with the same title and size is already in the wishlist
+        const existingItem = wishlist[username].some(item => item.title === title && item.size === size);
+
+        if (!existingItem) {
+            wishlist[username].push({ title, size });
             await persist.writeData('wishlist.json', wishlist);
             res.json({ success: true });
         } else {
@@ -118,7 +121,7 @@ router.post('/wishlist/add', isAuthenticated, async (req, res) => {
 // Remove from wishlist route
 router.delete('/wishlist/remove', isAuthenticated, async (req, res) => {
     try {
-        const { title } = req.body;
+        const { title, size } = req.body;
         const username = req.cookies.username;
 
         const wishlist = await persist.readData('wishlist.json');
@@ -127,7 +130,7 @@ router.delete('/wishlist/remove', isAuthenticated, async (req, res) => {
             return res.status(400).json({ success: false });
         }
 
-        wishlist[username] = wishlist[username].filter(item => item.title !== title);
+        wishlist[username] = wishlist[username].filter(item => item.title !== title || item.size !== size);
 
         await persist.writeData('wishlist.json', wishlist);
 

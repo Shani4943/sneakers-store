@@ -88,17 +88,47 @@ nav ul li a {
     margin-bottom: 10px;
 }
 
-/* Images */
-.product img, #cart-items li img, #wishlist-items li img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+/* Product Image Styling */
+.product img {
+    width: 100%; /* Make the image take up the full width of the container */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 300px; /* Limit the height to ensure images aren't too tall */
+    object-fit: cover; /* Ensures the image covers the container without stretching */
 }
 
-/* Price Styling */
-.product p, #cart-items li p, #wishlist-items li p {
-    margin: 10px 0;
+/* Reduce margin between title and description */
+.product h2 {
+    margin-bottom: 5px; /* Reduce the bottom margin for the title */
 }
+
+.product p {
+    margin-top: 5px; /* Reduce the top margin for the description */
+}
+
+/* Wishlist and Cart Image Styling */
+.container img {
+    width: 100%; /* Ensure the image fills the container width */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 200px; /* Limit the image height to keep it within the container */
+    object-fit: cover; /* Ensure the image covers the container area without stretching */
+}
+
+/* Additional container styling to ensure the image doesn't overflow */
+.container li {
+    overflow: hidden; /* Prevents images from overflowing their containers */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Reduce the margin between the title and description */
+.container h2 {
+    margin-bottom: 5px;
+}
+
+.container p {
+    margin-top: 5px;
+}
+
 
 /* Quantity Control for Cart Items */
 #cart-items li div {
@@ -161,3 +191,77 @@ form button[type="submit"]:hover {
     background-color: #d0d0d0;
     border-color: #999;
 }
+
+/* Buttons Container Styling */
+.buttons-container {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+}
+
+.buttons-container button {
+    flex: 1; /* Make the buttons the same width */
+}
+
+/* Size Selection Inline Styling */
+.size-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the label and the select box */
+}
+
+.size-selection label {
+    margin: 0; /* Remove any default margin */
+}
+
+.size-selection select {
+    margin-left: 10px;
+}
+
+/* Sticky Navigation Bar */
+nav {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    background-color: #e0e0e0; /* Background color for the navigation bar */
+    z-index: 1000; /* Ensure the navbar is on top of other elements */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow to make the navbar stand out */
+}
+
+/* Ensure the ul stays horizontal */
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for the navigation links */
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000000; /* Black text color for links */
+    font-size: 1.2em;
+}
+
+/* Styling for the Search Container */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Adds some space below the search bar */
+}
+
+#search {
+    width: 80%; /* Increase the width to 80% of the container */
+    padding: 12px; /* Increase padding for a taller search bar */
+    font-size: 1.2em; /* Increase the font size */
+    border: 1px solid #ccc; /* Add a subtle border */
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+
