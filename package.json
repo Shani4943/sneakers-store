@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,7 +15,8 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "final_project_fs": "file:",
-    "moment-timezone": "^0.5.45"
+    "moment-timezone": "^0.5.45",
+    "node-fetch": "^3.3.2"
   },
   "description": ""
 }

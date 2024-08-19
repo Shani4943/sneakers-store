@@ -23,16 +23,20 @@ router.get('/store', async (req, res) => {
 });
 
 // Add to cart route
+// Add to cart route
+// Add to cart route
 router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
     try {
-        console.log('Add to cart route hit');
         const { title } = req.body;
         const username = req.cookies.username;
 
+        console.log('Received request to add to cart:', title);
+
         const products = await persist.readData('products.json');
-        const product = products.find(p => p.title === title);
+        const product = products.find(p => p.title.toLowerCase() === title.toLowerCase());
 
         if (!product) {
+            console.log('Product not found:', title);
             return res.status(400).json({ success: false, message: 'Product not found.' });
         }
 
@@ -42,21 +46,17 @@ router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
             cart[username] = [];
         }
 
-        // Check if the product already exists in the cart
-        const existingProductIndex = cart[username].findIndex(item => item.title === title);
+        const existingProductIndex = cart[username].findIndex(item => item.title.toLowerCase() === title.toLowerCase());
 
         if (existingProductIndex !== -1) {
-            // If the product exists, increase the quantity
-            if (!cart[username][existingProductIndex].quantity) {
-                cart[username][existingProductIndex].quantity = 1; // Initialize quantity if not present
-            }
             cart[username][existingProductIndex].quantity += 1;
         } else {
-            // If the product does not exist in the cart, add it with a quantity of 1
             cart[username].push({ ...product, quantity: 1 });
         }
 
         await persist.writeData('cart.json', cart);
+
+        console.log('Cart updated:', cart[username]);
 
         res.json({ success: true });
     } catch (error) {
@@ -64,6 +64,7 @@ router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 
 // View wishlist route
