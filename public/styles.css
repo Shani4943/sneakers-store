@@ -186,3 +186,34 @@ form button[type="submit"]:hover {
 .size-selection select {
     margin-left: 10px;
 }
+
+/* Sticky Navigation Bar */
+nav {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    background-color: #e0e0e0; /* Background color for the navigation bar */
+    z-index: 1000; /* Ensure the navbar is on top of other elements */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow to make the navbar stand out */
+}
+
+/* Ensure the ul stays horizontal */
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for the navigation links */
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000000; /* Black text color for links */
+    font-size: 1.2em;
+}
