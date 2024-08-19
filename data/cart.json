@@ -1,5 +1,13 @@
 {
-  "shani": [],
+  "shani": [
+    {
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 2
+    }
+  ],
   "admin": [
     {
       "title": "Blue and White Dunks",

@@ -22,8 +22,7 @@ router.get('/store', async (req, res) => {
     }
 });
 
-// Add to cart route
-// Add to cart route
+
 // Add to cart route
 router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
     try {
