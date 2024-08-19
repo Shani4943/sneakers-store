@@ -217,3 +217,21 @@ nav ul li a {
     color: #000000; /* Black text color for links */
     font-size: 1.2em;
 }
+
+/* Styling for the Search Container */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Adds some space below the search bar */
+}
+
+#search {
+    width: 80%; /* Increase the width to 80% of the container */
+    padding: 12px; /* Increase padding for a taller search bar */
+    font-size: 1.2em; /* Increase the font size */
+    border: 1px solid #ccc; /* Add a subtle border */
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+
