@@ -27,22 +27,22 @@
         <ul id="cart-items">
             <% if (cart.length > 0) { %>
                 <% cart.forEach(function(item) { %>
-                    <li data-title="<%= item.title %>">
-                        <strong><%= item.title %></strong>   
+                    <li data-title="<%= item.title %>" data-size="<%= item.size %>">
+                        <strong><%= item.title %></strong> (Size: <%= item.size %>) 
                         <% if (item.image) { %>
                             <img src="<%= item.image %>" alt="<%= item.title %>">
                         <% } %>
                         Price: $<%= item.price.toFixed(2) %>
-
+                        
                         <!-- Quantity Control -->
                         <div>
                             <button class="decrease-quantity">-</button>
                             <span class="item-quantity"><%= item.quantity %></span>
                             <button class="increase-quantity">+</button>
                         </div>
-
-                       <!-- Remove Item -->
-                       <button class="remove-item" data-title="<%= item.title %>">Remove</button>
+                    
+                        <!-- Remove Item -->
+                        <button class="remove-item" data-title="<%= item.title %>" data-size="<%= item.size %>">Remove</button>
                     </li>
                 <% }); %>
             <% } else { %>
@@ -105,10 +105,11 @@
         document.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', function() {
                 const title = this.getAttribute('data-title');
+                const size = this.getAttribute('data-size');
                 fetch('/users/store/remove-from-cart', {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ title: title })
+                    body: JSON.stringify({ title: title, size: size })
                 }).then(response => {
                     if (response.ok) {
                         this.closest('li').remove(); // Remove the item from the page
@@ -118,7 +119,6 @@
                 }).catch(error => console.error('Error:', error));
             });
         });
-        
     </script>
 
 </body>

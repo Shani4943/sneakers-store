@@ -25,18 +25,28 @@
   ],
   "shir": [
     {
-      "title": "Black with Patches Dunks",
-      "description": "A stylish casual shoe.",
-      "price": 89.99,
-      "image": "/images/black-colors.jpg",
-      "quantity": 3
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 2,
+      "size": "37"
     },
     {
-      "title": "Olive Green",
-      "description": "A classic look with a modern twist.",
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
       "price": 69.99,
-      "image": "/images/green-white-red.jpg",
-      "quantity": 1
+      "image": "/images/blue-white.jpg",
+      "quantity": 1,
+      "size": "43"
+    },
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 1,
+      "size": "42"
     }
   ],
   "avi": [

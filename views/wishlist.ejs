@@ -6,19 +6,19 @@
     <title>Your Wishlist</title>
     <link rel="stylesheet" href="/styles.css">
     <script>
-        function removeFromWishlist(title) {
+        function removeFromWishlist(title, size) {
             fetch('/users/wishlist/remove', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title: title })
+                body: JSON.stringify({ title: title, size: size })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     // Remove the item from the DOM
-                    const itemElement = document.getElementById(title);
+                    const itemElement = document.getElementById(`${title}-${size}`);
                     if (itemElement) {
                         itemElement.remove();
                     }
@@ -40,8 +40,7 @@
                 console.error('Error:', error);
             });
         }
-        
-        
+         
     </script>
 </head>
 <body>
@@ -65,13 +64,13 @@
         <ul id="wishlist-items">
             <% if (wishlist.length > 0) { %>
                 <% wishlist.forEach(function(item) { %>
-                    <li id="<%= item.title %>">
-                        <strong><%= item.title %></strong>
+                    <li id="<%= item.title %>-<%= item.size %>">
+                        <strong><%= item.title %></strong> (Size: <%= item.size %>)
                         <% if (item.image) { %>
                             <img src="<%= item.image %>" alt="<%= item.title %>">
                         <% } %>
                         <p>Price: $<%= item.price %></p>
-                        <button onclick="removeFromWishlist('<%= item.title %>')">Remove</button>
+                        <button onclick="removeFromWishlist('<%= item.title %>', '<%= item.size %>')">Remove</button>
                     </li>
                 <% }); %>
             <% } else { %>
