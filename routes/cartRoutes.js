@@ -125,7 +125,8 @@ router.put('/store/decrease-quantity', isAuthenticated, async (req, res) => {
 
 // Remove from cart route
 // Remove from cart route
-router.delete('/store/remove-from-cart', isAuthenticated, async (req, res) => {
+router.delete('/store/remove-from-cart', async (req, res) => {
+    console.log('DELETE /store/remove-from-cart route hit'); // Debugging line
     const { title } = req.body;
     const username = req.cookies.username;
 

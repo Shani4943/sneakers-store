@@ -24,7 +24,7 @@ router.get('/store', async (req, res) => {
 
 
 // Add to cart route
-router.post('/store/add-to-cart', isAuthenticated, async (req, res) => {
+router.post('/store/add-to-cart',  isAuthenticated, async (req, res) => {
     try {
         const { title, size } = req.body;
         const username = req.cookies.username;

@@ -15,12 +15,8 @@
     "username": "avi",
     "password": "white"
   },
-  "newuser": {
-    "username": "newuser",
-    "password": "newpassword"
-  },
-  "newuser1": {
-    "username": "newuser1",
-    "password": "newpassword1"
+  "testuser": {
+    "username": "testuser",
+    "password": "testpassword"
   }
 }

@@ -1,121 +1,167 @@
-(async () => {
-    const fetch = (await import('node-fetch')).default;
 
-    const baseUrl = 'http://localhost:3000';
-    let cookies = '';
 
-    // Function to perform login and store cookies
-    async function login() {
-        const loginResponse = await fetch(`${baseUrl}/users/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username: 'admin', password: 'admin' })
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
+const baseUrl = 'http://localhost:3000';
+
+function checkStatus(response, expectedStatus, testName) {
+    if (response.status === expectedStatus) {
+        console.log(`✓ ${testName}`);
+    } else {
+        console.log(`✗ ${testName} - Expected ${expectedStatus}, got ${response.status}`);
+    }
+}
+
+async function runGETTests() {
+    try {
+        let response = await fetch(`${baseUrl}/`);
+        checkStatus(response, 200, 'GET /');
+    } catch (error) {
+        console.error('Error in GET /:', error);
+    }
+
+    // Test with /users prefix
+    try {
+        let response = await fetch(`${baseUrl}/users/cart`, {
+            redirect: 'manual'
         });
-
-        if (loginResponse.ok) {
-            cookies = loginResponse.headers.get('set-cookie');
-            console.log('Successfully logged in');
-        } else {
-            console.error('Login failed');
-        }
+        checkStatus(response, 302, 'GET /users/cart (unauthenticated)');
+    } catch (error) {
+        console.error('Error in GET /users/cart:', error);
     }
 
-    const routes = [
-        { method: 'GET', path: '/', description: 'Root route' },
-        { method: 'GET', path: '/users/login', description: 'Login page' },
-        { method: 'GET', path: '/users/register', description: 'Register page' },
-        {
-            method: 'POST',
-            path: '/users/login',
-            description: 'Login action',
-            body: { username: 'admin', password: 'admin' }
+    try {
+        let response = await fetch(`${baseUrl}/users/admin`, {
+            redirect: 'manual'
+        });
+        checkStatus(response, 302, 'GET /users/admin (unauthenticated)');
+    } catch (error) {
+        console.error('Error in GET /users/admin:', error);
+    }
+}
+
+async function runPOSTTests() {
+    let response = await fetch(`${baseUrl}/users/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        { method: 'POST', path: '/users/register', description: 'Register action', body: { username: 'newuser1', password: 'newpassword1' } },
-        { method: 'GET', path: '/users/store', description: 'Store page' },
-        {
-            method: 'POST',
-            path: '/users/store/add-to-cart',
-            description: 'Add to cart action',
-            body: { title: 'Olive Green' },
-            validate: async () => {
-                const cartResponse = await fetch(`${baseUrl}/users/cart`, {
-                    headers: { 'Cookie': cookies } // Send the cookies with the request
-                });
-                const cartHtml = await cartResponse.text();
-                return cartHtml.includes('Olive Green');
-            }
-        },
-        {
-            method: 'DELETE',
-            path: '/users/store/remove-from-cart',
-            description: 'Remove from cart action',
-            body: { title: 'Olive Green' },
-            validate: async () => {
-                const cartResponse = await fetch(`${baseUrl}/users/cart`, {
-                    headers: { 'Cookie': cookies }
-                });
-                const cartHtml = await cartResponse.text();
-                return !cartHtml.includes('Olive Green');
-            }
-        },
-        { method: 'GET', path: '/users/wishlist', description: 'Wishlist page' },
-        { method: 'POST', path: '/users/wishlist/add', description: 'Add to wishlist action', body: { title: 'Black with Patches Dunks' } },
-        { method: 'GET', path: '/users/giftcard', description: 'Buy gift card page' },
-        {
-            method: 'POST',
-            path: '/users/giftcard/checkout',
-            description: 'Purchase gift card action',
-            body: {
-                amount: 50,
-                message: 'Happy Birthday!',
-                yourName: 'Test User',
-                recipientEmail: 'test@example.com'
-            }
-        }
-    ];
+        body: JSON.stringify({
+            username: 'testuser',
+            password: 'testpassword'
+        }),
+    });
 
-    async function runTests() {
-        // Perform login before running tests that require authentication
-        await login();
-
-        for (const route of routes) {
-            const url = `${baseUrl}${route.path}`;
-            let options = {
-                method: route.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Cookie': cookies // Include cookies for authenticated routes
-                },
-            };
-
-            if (['POST', 'PUT', 'DELETE'].includes(route.method) && route.body) {
-                options.body = JSON.stringify(route.body);
-            }
-
-            try {
-                console.log(`Sending request to ${url} with options:`, options);
-                const response = await fetch(url, options);
-                const responseBody = await response.text();
-                let passed = response.ok;
-
-                // If the route has a validation function, run it
-                if (route.validate) {
-                    passed = passed && await route.validate();
-                }
-
-                if (passed) {
-                    console.log(`PASS: ${route.description} (${route.method} ${route.path})`);
-                } else {
-                    console.log(`FAIL: ${route.description} (${route.method} ${route.path}) - Status: ${response.status}`);
-                    console.log(`Response: ${responseBody}`);
-                }
-            } catch (error) {
-                console.log(`ERROR: ${route.description} (${route.method} ${route.path}) - ${error.message}`);
-            }
-        }
+    if (response.status === 201) {
+        console.log('✓ POST /users/register passed');
+    } else {
+        console.log(`✗ POST /users/register - Expected 201, got ${response.status}`);
     }
 
-    runTests();
-})();
+    response = await fetch(`${baseUrl}/users/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: 'testuser',
+            password: 'testpassword'
+        }),
+    });
+
+    if (response.status === 200) {
+        console.log('✓ POST /users/login passed');
+    } else {
+        console.log(`✗ POST /users/login - Expected 200, got ${response.status}`);
+    }
+
+    response = await fetch(`${baseUrl}/users/store/add-to-cart`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Cookie': 'username=testuser'  // Simulate authenticated user
+        },
+        body: JSON.stringify({
+            title: 'White Dunks',
+            size: '37'
+        }),
+    });
+    
+    if (response.status === 200) {
+        console.log('✓ POST /users/store/add-to-cart passed');
+    } else {
+        console.log(`✗ POST /users/store/add-to-cart - Expected 200, got ${response.status}`);
+    }
+
+    response = await fetch(`${baseUrl}/users/store/add-to-cart`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            title: 'White Dunks',
+            size: '37'
+        }),
+    });
+    
+    if (response.url.includes('/users/login')) {
+        console.log('✓ POST /users/store/add-to-cart (unauthenticated) redirected to login');
+    } else {
+        console.log(`✗ POST /users/store/add-to-cart (unauthenticated) - Expected redirect to login, got ${response.status}`);
+    }
+    
+
+    
+    response = await fetch(`${baseUrl}/users/checkout`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            cartId: '67890'
+        }),
+    });
+
+    if (response.status === 200) {
+        console.log('✓ POST /users/checkout passed');
+    } else {
+        console.log(`✗ POST /users/checkout - Expected 200, got ${response.status}`);
+    }
+}
+
+async function runDELETETests() {
+    response = await fetch(`${baseUrl}/users/store/remove-from-cart`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Cookie': 'username=testuser' // Set the username cookie
+        },
+        body: JSON.stringify({
+            title: 'White Dunks'
+        }),
+    });
+    
+    if (response.status === 200) {
+        console.log('✓ DELETE /users/store/remove-from-cart passed');
+    } else {
+        console.log(`✗ DELETE /users/store/remove-from-cart - Expected 200, got ${response.status}`);
+    }
+    
+}
+
+
+
+async function runTests() {
+    await runGETTests();
+    console.log('All GET tests executed.');
+
+    await runPOSTTests();
+    console.log('All POST tests executed.');
+
+    await runDELETETests();
+    console.log('All DELETE tests executed.');
+}
+
+runTests().catch(error => {
+    console.error('Error during test execution:', error);
+});

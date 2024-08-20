@@ -44,6 +44,8 @@ exports.login = (req, res) => {
         return res.status(400).send('Invalid username or password.');
     }
 
+    console.log(`User ${username} logged in successfully.`);
+
     // Log login activity with Tel Aviv time
     const activityLog = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/activityLog.json')));
     activityLog.push({
@@ -53,12 +55,17 @@ exports.login = (req, res) => {
     });
     fs.writeFileSync(path.join(__dirname, '../data/activityLog.json'), JSON.stringify(activityLog, null, 2));
 
+    // Set the cookie
     res.cookie('username', username, {
-        maxAge: req.body.rememberMe ? 10 * 24 * 60 * 60 * 1000 : 30 * 60 * 1000 // Handle rememberMe logic
+        maxAge: req.body.rememberMe ? 10 * 24 * 60 * 60 * 1000 : 30 * 60 * 1000, // Handle rememberMe logic
+        httpOnly: true // You might want to set this to true for security
     });
+
+    console.log(`Cookie set for user: ${username}`);
 
     res.redirect('/users/store'); // Redirect to store after login
 };
+
 
 exports.logout = (req, res) => {
     const username = req.cookies.username;

@@ -34,17 +34,13 @@ app.use('/users', miscRoutes);
 
 // Example route (you'll create more later)
 app.get('/', (req, res) => {
-    res.redirect('/users/store');
+    res.send('Welcome to the Home Page');
 });
+
 
 // Add the /llm.html route
 app.get('/llm.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'llm.html'));
-});
-
-// Add the /readme.html route
-app.get('/readme.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'readme.html'));
 });
 
 // Start server
