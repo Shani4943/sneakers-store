@@ -22,119 +22,78 @@
         </ul>
     </nav>
 
-    <form method="POST" action="/users/giftcard/checkout" id="giftcardForm">
-        <div>
-            <h2>Your best friend is the BEST? Let them know it...</h2>
-        </div>
-        
-        <div>
-            <h3>First step: Choose how much you want to spend on them (we are sure they deserve a lot)</h3>
-            <select name="amount" id="amount" required>
-                <option value="">Select an amount</option>
-                <option value="30">30 USD</option>
-                <option value="45">45 USD</option>
-                <option value="60">60 USD</option>
-                <option value="75">75 USD</option>
-                <option value="90">90 USD</option>
-                <option value="105">105 USD</option>
-                <option value="120">120 USD</option>
-                <option value="135">135 USD</option>
-                <option value="150">150 USD</option>
-            </select>
-        </div>
-        
-        <div>
-            <h3>Second step: Write them something sweet, maybe a joke that only the two of you can remember</h3>
-            <textarea name="message" id="message" placeholder="Write your message here..." maxlength="200" required></textarea>
-            <div>Character Count: <span id="charCount">0</span>/200</div>
-        </div>
-        
-        <div>
-            <h3>Third step: Your Name:</h3>
-            <input type="text" name="yourName" id="yourName" placeholder="Your Name" required>
-        </div>
-        
-        <div>
-            <h3>Fourth step: Send it as a gift?</h3>
-            <div class="button-container">
-                <button type="button" class="button-option" onclick="toggleEmailInput()">SEND AS A GIFT</button>
-                <button type="button" class="button-option" onclick="showMessage()">SEND IT TO ME</button>
-                <button type="submit" id="checkoutButton" disabled>Checkout</button>
+    <div class="page-container">
+        <form method="POST" action="/users/giftcard/checkout">
+            <div class="form-group">
+                <h2>Your best friend is the BEST? Let them know it...</h2>
             </div>
-        </div>
+            
+            <div class="form-group">
+                <h3>FIRST STEP: Choose how much you want to spend on them (we are sure they deserve a lot)</h3>
+                <select name="amount" id="amount" required>
+                    <option value="">Select an amount</option>
+                    <option value="30">30 USD</option>
+                    <option value="45">45 USD</option>
+                    <option value="60">60 USD</option>
+                    <option value="75">75 USD</option>
+                    <option value="90">90 USD</option>
+                    <option value="105">105 USD</option>
+                    <option value="120">120 USD</option>
+                    <option value="135">135 USD</option>
+                    <option value="150">150 USD</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <h3>SECOND STEP: Write them something sweet, maybe a joke that only the two of you can remember</h3>
+                <textarea name="message" id="message" placeholder="Write your message here..." maxlength="200" required></textarea>
+                <div class="character-count">Character Count: <span id="charCount">0</span>/200</div>
+            </div>
+            
+            <div class="form-group">
+                <h3>THIRD STEP: Write your name</h3>
+                <input type="text" name="yourName" id="yourName" placeholder="Your Name" required>
+            </div>
+            
+            <div class="form-group">
+                <h3>FOURTH STEP: Send it as a gift?</h3>
+                <div style="width: 100%; display: flex; justify-content: space-between;">
+                    <button type="button" class="button-option" id="giftButton" style="width: 48%;">Send as a Gift</button>
+                    <button type="button" class="button-option" id="selfButton" style="width: 48%;">Send it to Me</button>
+                </div>
+            </div>
+            
+            <div class="form-group" id="recipientEmailDiv" style="display:none;">
+                <h3>Recipient Email Address:</h3>
+                <input type="email" name="recipientEmail" id="recipientEmail" placeholder="Recipient's Email" required>
+            </div>
 
-        <div id="recipientEmailDiv" style="display:none;">
-            <h3>Recipient Email Address:</h3>
-            <input type="email" name="recipientEmail" id="recipientEmail" placeholder="Recipient's Email">
-        </div>
-
-        <div id="messageContainer" style="display:none;">
-            <p>You will receive a link to the card and can either forward it to a friend or print out a postcard and give it to them.</p>
-        </div>
-    </form>
+            <div class="form-group" id="selfMessage" style="display:none;">
+                <p>You will receive a link to the card and can either forward it to a friend via messenger or print out a postcard and give it to them in person.</p>
+            </div>
+        
+            <div class="form-group">
+                <button type="submit" id="checkoutButton">Checkout</button>
+            </div>
+        </form>
+    </div>
     
     <script>
-        // Function to enable or disable the checkout button based on form completion
-        function checkFormCompletion() {
-            const amount = document.getElementById('amount').value;
-            const message = document.getElementById('message').value.trim();
-            const yourName = document.getElementById('yourName').value.trim();
-            const recipientEmailDiv = document.getElementById('recipientEmailDiv');
-            const recipientEmail = document.getElementById('recipientEmail').value.trim();
-            const messageContainer = document.getElementById('messageContainer');
-            const checkoutButton = document.getElementById('checkoutButton');
-    
-            // Check if all fields are filled
-            let isFormValid = amount !== "" && message !== "" && yourName !== "";
-    
-            // Check for the selected option in Step 4
-            if (recipientEmailDiv.style.display !== 'none') {
-                // If "Send as a Gift" is selected, check the recipient email as well
-                isFormValid = isFormValid && recipientEmail !== "";
-            } else if (messageContainer.style.display === 'block') {
-                // If "Send it to me" is selected, we consider it valid
-                isFormValid = isFormValid && messageContainer.style.display === 'block';
-            } else {
-                // If neither option is selected, the form is invalid
-                isFormValid = false;
-            }
-    
-            // Enable or disable the checkout button based on form validity
-            checkoutButton.disabled = !isFormValid;
-        }
-    
-        function showMessage() {
-            document.getElementById('messageContainer').style.display = 'block';
-            document.getElementById('recipientEmailDiv').style.display = 'none';
-            checkFormCompletion(); // Recheck the form when this option is selected
-        }
-    
-        function toggleEmailInput() {
+        document.getElementById('giftButton').addEventListener('click', function() {
             document.getElementById('recipientEmailDiv').style.display = 'block';
-            document.getElementById('messageContainer').style.display = 'none';
-            checkFormCompletion(); // Recheck the form when this option is selected
-        }
-    
+            document.getElementById('selfMessage').style.display = 'none';
+            document.getElementById('recipientEmail').required = true; // Make recipient email required
+        });
+        
+        document.getElementById('selfButton').addEventListener('click', function() {
+            document.getElementById('recipientEmailDiv').style.display = 'none';
+            document.getElementById('selfMessage').style.display = 'block';
+            document.getElementById('recipientEmail').required = false; // Remove required attribute
+        });
+        
         document.getElementById('message').addEventListener('input', function() {
             document.getElementById('charCount').textContent = this.value.length;
-            checkFormCompletion();
         });
-    
-        document.getElementById('amount').addEventListener('change', checkFormCompletion);
-        document.getElementById('yourName').addEventListener('input', checkFormCompletion);
-        document.getElementById('recipientEmail').addEventListener('input', checkFormCompletion);
-    
-        // Prevent form submission if the form is not valid
-        document.getElementById('giftcardForm').addEventListener('submit', function(event) {
-            if (document.getElementById('checkoutButton').disabled) {
-                event.preventDefault(); // Stop form submission
-                alert('Please complete all steps before proceeding to checkout.');
-            }
-        });
-    
-        // Disable the checkout button by default
-        document.getElementById('checkoutButton').disabled = true;
-    </script>    
-        
+    </script>
 </body>
 </html>
