@@ -1,29 +1,16 @@
 {
   "shani": [],
-  "admin": [
+  "admin": [],
+  "shir": [
     {
-      "title": "Blue and White Dunks",
-      "description": "A versatile sneaker for casual outings.",
-      "price": 69.99,
-      "image": "/images/blue-white.jpg",
-      "quantity": 2
-    },
-    {
-      "title": "Tie-Dye Black Dunks",
-      "description": "A bold choice with a unique color pattern.",
-      "price": 79.99,
-      "image": "/images/colorful.jpg",
-      "quantity": 3
-    },
-    {
-      "title": "Olive Green",
-      "description": "A classic look with a modern twist.",
-      "price": 69.99,
-      "image": "/images/green-white-red.jpg",
-      "quantity": 1
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 1,
+      "size": "37"
     }
   ],
-  "shir": [],
   "avi": [
     {
       "title": "Black with Patches Dunks",
