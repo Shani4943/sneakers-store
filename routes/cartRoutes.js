@@ -124,7 +124,6 @@ router.put('/store/decrease-quantity', isAuthenticated, async (req, res) => {
 });
 
 // Remove from cart route
-// Remove from cart route
 router.delete('/store/remove-from-cart', isAuthenticated, async (req, res) => {
     const { title } = req.body;
     const username = req.cookies.username;
@@ -153,7 +152,5 @@ router.delete('/store/remove-from-cart', isAuthenticated, async (req, res) => {
 
     res.json({ success: true });
 });
-
-
 
 module.exports = router;
