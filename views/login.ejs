@@ -1,14 +1,14 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="/styleslogin.css">
 </head>
 <body>
-    <h1>Welcome to the Shoe Store!</h1> <!-- Welcome message -->
+    <h1>Welcome to the Sneakers Store!</h1> <!-- Welcome message -->
+    <p>Please log in to continue shopping.</p>
 
     <form action="/users/login" method="POST">
         <label for="username">Username:</label>
@@ -21,7 +21,7 @@
             <input type="checkbox" name="rememberMe"> Remember Me
         </label>
 
-        <button type="submit">Login</button>
+        <button class="button-minimal">Login</button>
     </form>
 
     <!-- Registration link -->

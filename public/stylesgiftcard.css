@@ -76,7 +76,7 @@ nav ul li a:hover {
     padding: 40px;
     margin: 0 auto;
     box-sizing: border-box;
-    background-color: #f7f7f7;
+    background-color: #f7f7f7d8;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -124,24 +124,31 @@ input:focus, select:focus, textarea:focus {
     margin-bottom: 20px;
 }
 
-/* Button Styling */
-button {
+/* Modern Button Styling */
+.button-option {
     padding: 10px 20px;
     font-size: 1em;
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid #000000;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text color */
+    border: 1px solid #000; /* Black border */
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.2s ease;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; /* Retain Montserrat for buttons */
     letter-spacing: 1px;
     text-transform: uppercase;
-    border-radius: 0px;
+    border-radius: 0px; /* Square corners */
     display: inline-block;
-    margin: 10px 0 0 0;
+    margin: 10px; /* Space around buttons */
     box-sizing: border-box;
     text-align: center;
 }
+
+.button-option:hover {
+    background-color: #f0f0f0; /* Light grey hover effect */
+    color: #007bff; /* Blue text color on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Checkout Button Styling */
 #checkoutButton {

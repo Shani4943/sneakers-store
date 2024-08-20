@@ -1,0 +1,125 @@
+/* General Styling */
+body {
+    background-color: #f0f4f8; /* Light grey-blue background */
+    color: #333333; /* Dark grey text */
+    font-family: 'Calibri', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically and horizontally */
+    height: 100vh;
+    margin: 0;
+    padding: 20px; /* Equal padding on all sides */
+}
+
+.checkout-container {
+    background-color: #ffffff; /* White background */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 500px;
+    margin: auto; /* Center the container with equal margin on all sides */
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-top: 0; /* Remove the top margin */
+    margin-bottom: 10px; /* Reduce bottom margin for less space below the title */
+    color: #333333; /* Dark grey title color */
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding-top: 10px; /* Add a small padding to keep some space */
+}
+
+
+.order-summary {
+    margin-bottom: 30px;
+}
+
+.order-summary h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #007bff; /* Blue accent color */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.order-summary ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.order-summary li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0; /* Light grey border for separation */
+}
+
+.total {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: right;
+    color: #007bff; /* Blue color for the total amount */
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #333333; /* Dark grey text */
+}
+
+/* Adjusting Input Fields */
+.form-group input {
+    width: 100%;
+    padding: 12px; /* Slightly increase the padding */
+    border: 1px solid #6c757d; /* Soft grey-blue border */
+    border-radius: 5px;
+    background-color: #f0f4f8; /* Match body background */
+    color: #333333; /* Dark grey text */
+    font-size: 1.1em; /* Increase font size slightly */
+}
+
+/* Adjusting Button */
+.button-minimal {
+    width: 100%;
+    padding: 12px; /* Reduce the padding to match the input fields */
+    border: 2px solid #333333; /* Dark grey border */
+    border-radius: 5px;
+    background-color: #ffffff; /* White background */
+    color: #333333; /* Dark grey text */
+    font-size: 1.1em; /* Match font size with input fields */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    font-family: 'Calibri', sans-serif; /* Matching the font */
+    text-transform: uppercase; /* Make the text uppercase */
+    font-weight: bold; /* Make the text bold */
+    text-align: center;
+    box-shadow: none; /* Remove any shadow for a flat look */
+}
+
+.button-minimal:hover {
+    background-color: #949292; /* Dark grey background on hover */
+    color: #ffffff; /* White text on hover */
+    border-color: #949292; /* Dark grey border on hover */
+}
+
+.button-minimal:focus {
+    outline: none;
+    border-color: #3f3f3f; /* Blue border on focus */
+}

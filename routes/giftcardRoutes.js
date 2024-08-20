@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const router = express.Router();
 const persist = require('./persist');  // Import the persist module

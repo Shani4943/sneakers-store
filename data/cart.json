@@ -25,34 +25,10 @@
   ],
   "shir": [
     {
-      "title": "Olive Green",
-      "description": "A classic look with a modern twist.",
-      "price": 69.99,
-      "image": "/images/green-white-red.jpg",
-      "quantity": 2,
-      "size": "37"
-    },
-    {
-      "title": "Tie-Dye Black Dunks",
-      "description": "A bold choice with a unique color pattern.",
-      "price": 79.99,
-      "image": "/images/colorful.jpg",
-      "quantity": 1,
-      "size": "41"
-    },
-    {
-      "title": "Tie-Dye Black Dunks",
-      "description": "A bold choice with a unique color pattern.",
-      "price": 79.99,
-      "image": "/images/colorful.jpg",
-      "quantity": 1,
-      "size": "37"
-    },
-    {
-      "title": "White & Green",
-      "description": "A clean and fresh style for any occasion.",
-      "price": 79.99,
-      "image": "/images/green-white.jpg",
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
       "quantity": 1,
       "size": "37"
     }
