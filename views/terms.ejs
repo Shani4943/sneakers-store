@@ -12,6 +12,9 @@
     
     <nav>
         <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/store">Store</a></li>
             <li><a href="/users/cart">Cart</a></li>

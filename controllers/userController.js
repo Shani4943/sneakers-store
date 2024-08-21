@@ -75,8 +75,21 @@ exports.logout = (req, res) => {
 // Middleware to check if the user is authenticated
 exports.isAuthenticated = (req, res, next) => {
     if (req.cookies.username) {
+        res.locals.username = req.cookies.username; // Pass the username to EJS
         return next();
     } else {
         res.redirect('/users/login');
+    }
+};
+
+// Middleware to check if the user is an admin
+exports.isAdmin = (req, res, next) => {
+    const users = readUsers();
+    const username = req.cookies.username;
+
+    if (username && users[username] && users[username].isAdmin) {
+        return next();
+    } else {
+        res.status(403).send('Access denied.'); // Send an access denied message if not an admin
     }
 };

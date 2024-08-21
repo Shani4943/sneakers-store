@@ -299,6 +299,22 @@
       "image": "/images/black-colors.jpg",
       "quantity": 2,
       "size": "37"
+    },
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 1,
+      "size": "37"
+    },
+    {
+      "title": "White & Green",
+      "description": "A clean and fresh style for any occasion.",
+      "price": 79.99,
+      "image": "/images/green-white.jpg",
+      "quantity": 1,
+      "size": "44"
     }
   ]
 }
