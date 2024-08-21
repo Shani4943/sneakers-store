@@ -14,8 +14,6 @@
   "avi": {
     "username": "avi",
     "password": "white"
-<<<<<<< HEAD
-=======
   },
   "newuser": {
     "username": "newuser",
@@ -36,6 +34,5 @@
   "Roni": {
     "username": "Roni",
     "password": "Pardess"
->>>>>>> 1c8fad862c9890ddb9d992ae0aa8854b3f25e781
   }
 }
