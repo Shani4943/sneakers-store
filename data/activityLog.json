@@ -513,5 +513,20 @@
     "datetime": "2024-08-20 15:25:59",
     "username": "admin",
     "type": "Login"
+  },
+  {
+    "datetime": "2024-08-20 15:52:47",
+    "username": "shani",
+    "type": "Login"
+  },
+  {
+    "datetime": "2024-08-20 15:53:36",
+    "username": "shani",
+    "type": "Logout"
+  },
+  {
+    "datetime": "2024-08-20 15:53:41",
+    "username": "shani",
+    "type": "Login"
   }
 ]
