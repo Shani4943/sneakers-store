@@ -5,9 +5,6 @@ const path = require('path');
 // Initialize the Express app
 const app = express();
 
-// Security middleware
-require('./security')(app);
-
 // Import the separated route modules
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
@@ -16,7 +13,6 @@ const adminRoutes = require('./routes/adminRoutes');
 const giftcardRoutes = require('./routes/giftcardRoutes');
 const miscRoutes = require('./routes/miscRoutes');
 
-
 const { readData } = require('./routes/persist'); // Adjust the path if necessary
 
 // Middleware
@@ -24,6 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // Parse cookies
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
+// Middleware to make username available in all templates
+app.use((req, res, next) => {
+    res.locals.username = req.cookies.username || undefined;
+    next();
+});
 
 // Set up views directory
 app.set('views', path.join(__dirname, 'views'));
@@ -53,13 +55,13 @@ app.get('/llm.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'llm.html'));
 });
 
+// Add the /Readme.html route
+app.get('/readme.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'readme.html'));
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-// Add the /Readme.html route
-app.get('/readme.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'readme.html'));
 });

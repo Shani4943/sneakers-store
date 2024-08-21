@@ -1,38 +1,57 @@
 {
   "admin": {
     "username": "admin",
-    "password": "admin"
+    "password": "admin",
+    "isAdmin": true
   },
   "shani": {
     "username": "shani",
-    "password": "white"
+    "password": "white",
+    "isAdmin": false
   },
   "shir": {
     "username": "shir",
-    "password": "shir123"
+    "password": "shir123",
+    "isAdmin": false
   },
   "avi": {
     "username": "avi",
-    "password": "white"
+    "password": "white",
+    "isAdmin": false
   },
   "newuser": {
     "username": "newuser",
-    "password": "newpassword"
+    "password": "newpassword",
+    "isAdmin": false
   },
   "newuser1": {
     "username": "newuser1",
-    "password": "newpassword1"
+    "password": "newpassword1",
+    "isAdmin": false
   },
   "amit": {
     "username": "amit",
-    "password": "peled"
+    "password": "peled",
+    "isAdmin": false
   },
   "testuser": {
     "username": "testuser",
-    "password": "testpassword"
+    "password": "testpassword",
+    "isAdmin": false
   },
   "Roni": {
     "username": "Roni",
-    "password": "Pardess"
+    "password": "Pardess",
+    "isAdmin": false
+  },
+  "Oded": {
+    "username": "Oded",
+    "password": "Raban",
+    "isAdmin": false
+  },
+  "Yair": {
+    "username": "Yair",
+    "password": "Raban",
+    "isAdmin": false
   }
 }
