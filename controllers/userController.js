@@ -1,11 +1,6 @@
-
-//In a Node.js application, the controllers directory is typically used to store 
-//the logic that handles requests and generates responses. 
-
-
 const fs = require('fs');
 const path = require('path');
-const moment = require('moment-timezone'); // Ensure moment-timezone is imported
+const moment = require('moment-timezone');
 const usersFilePath = path.join(__dirname, '../data/users.json');
 
 // Helper function to read user data
@@ -25,29 +20,26 @@ exports.register = (req, res) => {
     const users = readUsers();
 
     if (users[username]) {
-        return res.status(400).render('register', { error: 'User already exists.' }); // Render the registration page with an error message
+        return res.status(400).render('register', { error: 'User already exists.' });
     }
 
     users[username] = { username, password };
     writeUsers(users);
 
-    res.redirect('/users/login'); // Redirect to the login page after successful registration
+    res.redirect('/users/login');
 };
 
-
 // Login a user
-
 exports.login = (req, res) => {
     const { username, password } = req.body;
-    const users = readUsers(); // Assuming this function reads the users from a file
+    const users = readUsers();
 
     if (!users[username] || users[username].password !== password) {
-        return res.status(400).send('Invalid username or password.');
+        return res.status(400).render('login', { error: 'Invalid username or password.' });
     }
 
     console.log(`User ${username} logged in successfully.`);
 
-    // Log login activity with Tel Aviv time
     const activityLog = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/activityLog.json')));
     activityLog.push({
         datetime: moment().tz('Asia/Jerusalem').format('YYYY-MM-DD HH:mm:ss'),
@@ -56,22 +48,18 @@ exports.login = (req, res) => {
     });
     fs.writeFileSync(path.join(__dirname, '../data/activityLog.json'), JSON.stringify(activityLog, null, 2));
 
-    // Set the cookie
     res.cookie('username', username, {
-        maxAge: req.body.rememberMe ? 10 * 24 * 60 * 60 * 1000 : 30 * 60 * 1000, // Handle rememberMe logic
-        httpOnly: true // You might want to set this to true for security
+        maxAge: req.body.rememberMe ? 10 * 24 * 60 * 60 * 1000 : 30 * 60 * 1000,
+        httpOnly: true
     });
 
-    console.log(`Cookie set for user: ${username}`);
-
-    res.redirect('/users/store'); // Redirect to store after login
+    res.redirect('/users/store');
 };
 
-
+// Logout a user
 exports.logout = (req, res) => {
     const username = req.cookies.username;
 
-    // Log logout activity with Tel Aviv time
     const activityLog = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/activityLog.json')));
     activityLog.push({
         datetime: moment().tz('Asia/Jerusalem').format('YYYY-MM-DD HH:mm:ss'),
@@ -84,27 +72,11 @@ exports.logout = (req, res) => {
     res.redirect('/users/login');
 };
 
-
-
 // Middleware to check if the user is authenticated
 exports.isAuthenticated = (req, res, next) => {
-    if (req.cookies.username) {  // Check if the 'username' cookie is present
-        return next();  // If the user is authenticated, proceed to the next middleware/route handler
+    if (req.cookies.username) {
+        return next();
     } else {
-        res.redirect('/users/login');  // If not authenticated, redirect to the login page
+        res.redirect('/users/login');
     }
 };
-
-const activityLogPath = path.join(__dirname, '../data/activityLog.json');
-
-// Helper function to log activities
-function logActivity(username, activityType) {
-    const activityLog = JSON.parse(fs.readFileSync(activityLogPath));
-    const newLog = {
-        datetime: new Date().toISOString(),
-        username,
-        type: activityType
-    };
-    activityLog.push(newLog);
-    fs.writeFileSync(activityLogPath, JSON.stringify(activityLog, null, 2));
-}
