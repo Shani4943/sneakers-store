@@ -17,6 +17,8 @@
                 <% cart.forEach(function(item) { %>
                     <li>
                         <span><%= item.title %></span>
+                        <span> - Size: <%= item.size %></span> <!-- Display the size -->
+                        <span> - Quantity: <%= item.quantity %></span> <!-- Display the quantity -->
                         <span>$<%= (item.price * item.quantity).toFixed(2) %></span> <!-- Ensure 2 decimal places -->
                     </li>
                 <% }); %>
