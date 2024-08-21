@@ -2,6 +2,11 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+// Initialize the Express app
+const app = express();
+
+// Security middleware
+require('./security')(app);
 
 // Import the separated route modules
 const authRoutes = require('./routes/authRoutes');
@@ -11,7 +16,6 @@ const adminRoutes = require('./routes/adminRoutes');
 const giftcardRoutes = require('./routes/giftcardRoutes');
 const miscRoutes = require('./routes/miscRoutes');
 
-const app = express();
 
 const { readData } = require('./routes/persist'); // Adjust the path if necessary
 

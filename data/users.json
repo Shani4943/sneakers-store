@@ -34,11 +34,5 @@
   "Roni": {
     "username": "Roni",
     "password": "Pardess"
-  },
-  "Tal": {
-    "password": "$2b$10$Bg84Z9Fs7pQnjcBGJ5gOmuID9gmlrCXc6jUgDgVyztk.MXpK3NXE6"
-  },
-  "Yael": {
-    "password": "$2b$10$za9i5EGsDPE63vpL0t2g3..z0MBvYxVKmCd3XMSYf3WFSOP59fVHm"
   }
 }
