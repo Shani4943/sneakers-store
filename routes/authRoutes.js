@@ -41,13 +41,12 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Route to handle user registration
 router.post('/register', async (req, res) => {
     try {
         await userController.register(req, res);
     } catch (error) {
         console.error('Error handling user registration:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).render('register', { error: 'Internal Server Error' }); // Render the registration page with a generic error message
     }
 });
 

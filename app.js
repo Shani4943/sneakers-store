@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 // Security middleware
-require('./security')(app);
+//require('./security')(app);
 
 // Import the separated route modules
 const authRoutes = require('./routes/authRoutes');

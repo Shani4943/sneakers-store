@@ -9,6 +9,10 @@
 <body>
     <h1>Create an Account</h1>
 
+    <% if (typeof error !== 'undefined') { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+
     <form action="/users/register" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
@@ -19,7 +23,6 @@
         <button class="button-minimal">Register</button>
     </form>
 
-    <!-- Add the Log In link here -->
     <p>Already have an account? <a href="/users/login">Log In</a></p>
 </body>
 </html>

@@ -21,18 +21,19 @@ function writeUsers(users) {
 
 // Register a new user
 exports.register = (req, res) => {
-    const { username, password } = req.body; // Extract username and password from the request body
-    const users = readUsers(); // Read the current users from the users.json file
+    const { username, password } = req.body;
+    const users = readUsers();
 
-    if (users[username]) { // Check if the username already exists
-        return res.status(400).send('User already exists.'); // If it does, send an error response
+    if (users[username]) {
+        return res.status(400).render('register', { error: 'User already exists.' }); // Render the registration page with an error message
     }
 
-    users[username] = { username, password }; // Add the new user to the users object
-    writeUsers(users); // Write the updated users object back to users.json
+    users[username] = { username, password };
+    writeUsers(users);
 
-    res.status(201).send('User registered successfully.'); // Send a success response
+    res.redirect('/users/login'); // Redirect to the login page after successful registration
 };
+
 
 // Login a user
 
