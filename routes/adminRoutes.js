@@ -73,4 +73,18 @@ router.post('/admin/delete-product', isAuthenticated, isAdmin, async (req, res) 
     }
 });
 
+// POST route to clear logs
+router.post('/admin/clear-logs', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        // Clear the activity log by writing an empty array to the file
+        await persist.writeData('activityLog.json', []);
+
+        // Respond with success
+        res.sendStatus(200);
+    } catch (error) {
+        console.error('Error clearing logs:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 module.exports = router;
