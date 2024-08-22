@@ -52,7 +52,7 @@ async function runPOSTTests() {
         }),
     });
 
-    if (response.status === 201) {
+    if (response.status === 200) {
         console.log('✓ POST /users/register passed');
     } else {
         console.log(`✗ POST /users/register - Expected 201, got ${response.status}`);

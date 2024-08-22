@@ -71,29 +71,31 @@
     <!-- Product Management Section -->
     <h2>Manage Products</h2>
 
-    <!-- Form to Add Products -->
-    <form action="/users/admin/add-product" method="POST">
-        <input type="text" name="title" placeholder="Product Title" required>
-        <input type="text" name="description" placeholder="Product Description" required>
-        <input type="text" name="image" placeholder="Image Filename (e.g., /images/blackshoe.jpg)" required>
-        <input type="number" name="price" placeholder="Product Price (in $)" required>
-        <button type="submit">Add Product</button>
-    </form>
+   <!-- Form to Add Products -->
+<form action="/users/admin/add-product" method="POST">
 
-    <h2>Existing Products</h2>
-    <ul>
-        <% products.forEach(function(product) { %>
-        <li>
-            <strong><%= product.title %></strong> - <%= product.description %><br>
-            <!-- Construct the URL based on the image path -->
-            <a href="<%= product.image %>" target="_blank"><%= product.image %></a>
-            <form action="/users/admin/delete-product" method="POST" style="display:inline;">
-                <input type="hidden" name="title" value="<%= product.title %>">
-                <button type="submit">Remove</button>
-            </form>
-        </li>
-        <% }); %>
-    </ul>
+    <input type="text" name="title" placeholder="Product Title" required>
+    <input type="text" name="description" placeholder="Product Description" required>
+    <input type="text" name="image" placeholder="Image Filename (e.g., /images/blackshoe.jpg)" required>
+    <input type="number" name="price" placeholder="Product Price (in $)" required>
+    <button type="submit">Add Product</button>
+</form>
+
+<h2>Existing Products</h2>
+<ul>
+    <% products.forEach(function(product) { %>
+    <li>
+        <strong><%= product.title %></strong> - <%= product.description %><br>
+        <!-- Construct the URL based on the image path -->
+        <a href="<%= product.image %>" target="_blank"><%= product.image %></a>
+        <form action="/users/admin/delete-product" method="POST" style="display:inline;">
+            <input type="hidden" name="title" value="<%= product.title %>">
+            <button type="submit">Remove</button>
+        </form>
+    </li>
+    <% }); %>
+</ul>
+
 
 </body>
 </html>
