@@ -81,7 +81,9 @@
     <ul>
         <% products.forEach(function(product) { %>
         <li>
-            <strong><%= product.title %></strong> - <%= product.description %>
+            <strong><%= product.title %></strong> - <%= product.description %><br>
+            <!-- Construct the URL based on the image path -->
+            <a href="<%= product.image %>" target="_blank"><%= product.image %></a>
             <form action="/users/admin/delete-product" method="POST" style="display:inline;">
                 <input type="hidden" name="title" value="<%= product.title %>">
                 <button type="submit">Remove</button>
