@@ -33,4 +33,44 @@ router.get('/admin', isAuthenticated, isAdmin, async (req, res) => {
     }
 });
 
+// POST route to add a new product
+router.post('/admin/add-product', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const { title, description, image, price } = req.body;
+        const products = await persist.readData('products.json');
+
+        // Add the new product to the products array
+        products.push({ title, description, image, price: parseFloat(price) });
+
+        // Save the updated products array back to the JSON file
+        await persist.writeData('products.json', products);
+
+        // Redirect back to the admin page
+        res.redirect('/users/admin');
+    } catch (error) {
+        console.error('Error adding product:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// POST route to delete a product
+router.post('/admin/delete-product', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const { title } = req.body;
+        let products = await persist.readData('products.json');
+
+        // Filter out the product to be removed
+        products = products.filter(product => product.title !== title);
+
+        // Save the updated products array back to the JSON file
+        await persist.writeData('products.json', products);
+
+        // Redirect back to the admin page
+        res.redirect('/users/admin');
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 module.exports = router;
