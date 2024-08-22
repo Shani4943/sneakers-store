@@ -179,3 +179,22 @@ button[onclick="clearLogs()"]:hover {
     background-color: #d68910; /* Darker yellow on hover */
     transform: translateY(-2px); /* Slight lift on hover */
 }
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    padding: 8px 15px; /* Reduced padding to match the other buttons */
+    margin-bottom: 20px;
+    background-color: #2980b9; /* Blue background */
+    color: #ffffff; /* White text */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9em; /* Adjusted font size to match other buttons */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+    background-color: #21618c; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
