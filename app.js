@@ -1,8 +1,8 @@
+// Import the necessary modules
 const express = require('express');
 const app = express();
 const helmet = require('helmet');
 //const rateLimit = require('express-rate-limit');
-
 const expressValidator = require('express-validator');
 const morgan = require('morgan');
 const compression = require('compression');
@@ -14,6 +14,7 @@ app.use(compression()); // Enable compression for responses
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser()); // Parse cookies
+
 
 // Use express-validator in your route handlers to validate and sanitize inputs
 const { body, validationResult } = require('express-validator');
@@ -38,7 +39,7 @@ app.post('/some-route', [
 // });
 // app.use(limiter);
 
-// Specific rate limiter for login
+// // Specific rate limiter for login
 // const loginLimiter = rateLimit({
 //   windowMs: 15 * 60 * 1000, // 15 minutes
 //   max: 5, // Limit each IP to 5 login attempts per windowMs
@@ -53,9 +54,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Your routes and other middleware here
-
 
 
 // Import the separated route modules
@@ -79,7 +77,6 @@ app.use((req, res, next) => {
     res.locals.username = req.cookies.username || undefined;
     next();
 });
-
 
 // Set up views directory
 app.set('views', path.join(__dirname, 'views'));
@@ -113,7 +110,6 @@ app.get('/llm.html', (req, res) => {
 app.get('/readme.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'readme.html'));
 });
-
 
 // Start server
 const PORT = process.env.PORT || 3000;

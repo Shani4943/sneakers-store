@@ -73,7 +73,7 @@
 
    <!-- Form to Add Products -->
 <form action="/users/admin/add-product" method="POST">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>"> <!-- Add this line -->
+
     <input type="text" name="title" placeholder="Product Title" required>
     <input type="text" name="description" placeholder="Product Description" required>
     <input type="text" name="image" placeholder="Image Filename (e.g., /images/blackshoe.jpg)" required>
@@ -89,7 +89,6 @@
         <!-- Construct the URL based on the image path -->
         <a href="<%= product.image %>" target="_blank"><%= product.image %></a>
         <form action="/users/admin/delete-product" method="POST" style="display:inline;">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>"> <!-- Add this line -->
             <input type="hidden" name="title" value="<%= product.title %>">
             <button type="submit">Remove</button>
         </form>

@@ -59,7 +59,6 @@
     <!-- Checkout Button -->
     <% if (cart.length > 0) { %>
         <form action="/users/checkout" method="POST">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>"> <!-- Add this line -->
             <button type="submit">Checkout</button>
         </form>
     <% } %>

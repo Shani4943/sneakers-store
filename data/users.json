@@ -34,24 +34,17 @@
     "password": "peled",
     "isAdmin": false
   },
-  "testuser": {
-    "username": "testuser",
-    "password": "testpassword",
-    "isAdmin": false
-  },
   "Roni": {
     "username": "Roni",
     "password": "Pardess",
     "isAdmin": false
   },
-  "Oded": {
-    "username": "Oded",
-    "password": "Raban",
-    "isAdmin": false
+  "testuser": {
+    "username": "testuser",
+    "password": "testpassword"
   },
-  "Yair": {
-    "username": "Yair",
-    "password": "Raban",
-    "isAdmin": false
+  "noa": {
+    "username": "noa",
+    "password": "r"
   }
 }
