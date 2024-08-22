@@ -1,34 +1,18 @@
 {
   "shani": [
     {
-      "title": "Olive Green",
-      "description": "A classic look with a modern twist.",
-      "price": 69.99,
-      "image": "/images/green-white-red.jpg",
-      "quantity": 1,
-      "size": "37"
-    },
-    {
-      "title": "White Dunks",
-      "description": "A timeless design with a polished finish.",
-      "price": 99.99,
-      "image": "/images/white.jpg",
-      "quantity": 1,
-      "size": "37"
-    },
-    {
-      "title": "Purple-White with Platform",
-      "description": "A chic shoe with added height.",
-      "price": 89.99,
-      "image": "/images/purple-white-bottom.jpg",
-      "quantity": 1,
-      "size": "37"
-    },
-    {
       "title": "Black with Patches Dunks",
       "description": "An eye-catching shoe perfect for everyday wear.",
       "price": 89.99,
       "image": "/images/black-colors.jpg",
+      "quantity": 1,
+      "size": "37"
+    },
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
       "quantity": 1,
       "size": "37"
     }
