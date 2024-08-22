@@ -41,7 +41,7 @@ table {
 }
 
 table th, table td {
-    padding: 15px 20px;
+    padding: 15px 30px; /* Increased padding for more space between columns */
     text-align: left;
     border-bottom: 1px solid #ecf0f1; /* Light border */
 }
@@ -96,19 +96,12 @@ form button:hover {
 }
 
 /* List Styling */
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    max-width: 600px;
-}
-
 ul li {
     padding: 15px;
     border-bottom: 1px solid #ecf0f1; /* Light grey border */
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Align items at the top */
     background-color: #ffffff;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -118,10 +111,27 @@ ul li {
 ul li strong {
     font-weight: bold;
     color: #2c3e50; /* Dark grey-blue text */
+    width: 30%; /* Adjust width for the product title */
+}
+
+ul li span {
+    width: 40%; /* Adjust width for the product description */
+    color: #636e72; /* Same grey color for consistency */
+}
+
+ul li a {
+    width: 20%; /* Adjust width for the URL */
+    color: #2980b9; /* Blue for the URL link */
+    word-break: break-all; /* Prevent long URLs from overflowing */
+    text-decoration: none;
 }
 
 ul li form {
     margin: 0;
+    flex-shrink: 0; /* Prevent the form (remove button) from shrinking */
+    width: 10%; /* Adjust width for the remove button */
+    display: flex;
+    justify-content: flex-end; /* Align the button to the right */
 }
 
 ul li button {
@@ -167,5 +177,24 @@ button[onclick="clearLogs()"] {
 
 button[onclick="clearLogs()"]:hover {
     background-color: #d68910; /* Darker yellow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    padding: 8px 15px; /* Reduced padding to match the other buttons */
+    margin-bottom: 20px;
+    background-color: #2980b9; /* Blue background */
+    color: #ffffff; /* White text */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9em; /* Adjusted font size to match other buttons */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+    background-color: #21618c; /* Darker blue on hover */
     transform: translateY(-2px); /* Slight lift on hover */
 }
