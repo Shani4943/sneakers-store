@@ -38,13 +38,5 @@
     "username": "Roni",
     "password": "Pardess",
     "isAdmin": false
-  },
-  "testuser": {
-    "username": "testuser",
-    "password": "testpassword"
-  },
-  "noa": {
-    "username": "noa",
-    "password": "r"
   }
 }
